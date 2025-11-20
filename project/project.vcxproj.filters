@@ -1,7 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Library\App.cpp">
       <Filter>Library</Filter>
     </ClCompile>
@@ -50,12 +49,18 @@
     <ClCompile Include="Library\Time.cpp">
       <Filter>Library</Filter>
     </ClCompile>
-    <ClCompile Include="Source\Player.cpp" />
-    <ClCompile Include="Source\Field.cpp" />
+    <ClCompile Include="Source\Field.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Player.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\GameOver.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\SceneFactory.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="Source\Screen.h" />
-    <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Library\App.h">
       <Filter>Library</Filter>
     </ClInclude>
@@ -116,8 +121,17 @@
     <ClInclude Include="Library\myDxLib.h">
       <Filter>Library</Filter>
     </ClInclude>
-    <ClInclude Include="Source\Player.h" />
-    <ClInclude Include="Source\Field.h" />
+    <ClInclude Include="Source\GameOver.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Field.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Player.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\SceneFactory.h" />
+    <ClInclude Include="Source\Screen.h" />
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">

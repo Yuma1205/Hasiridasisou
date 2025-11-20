@@ -154,6 +154,7 @@
     <ClInclude Include="Library\Time.h" />
     <ClInclude Include="Source\BootScene.h" />
     <ClInclude Include="Source\Field.h" />
+    <ClInclude Include="Source\GameOver.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
@@ -176,6 +177,7 @@
     <ClCompile Include="Library\Time.cpp" />
     <ClCompile Include="Source\BootScene.cpp" />
     <ClCompile Include="Source\Field.cpp" />
+    <ClCompile Include="Source\GameOver.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />

@@ -5,6 +5,7 @@
 PlayScene::PlayScene()
 {
 	new Field();
+	
 }
 
 PlayScene::~PlayScene()
