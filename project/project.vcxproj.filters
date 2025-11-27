@@ -59,6 +59,12 @@
       <Filter>PlayScene</Filter>
     </ClCompile>
     <ClCompile Include="Source\SceneFactory.cpp" />
+    <ClCompile Include="Source\csvReader.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\Common.cpp">
+      <Filter>TitleScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -132,6 +138,12 @@
     </ClInclude>
     <ClInclude Include="Source\SceneFactory.h" />
     <ClInclude Include="Source\Screen.h" />
+    <ClInclude Include="Source\csvReader.h">
+      <Filter>PlayScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Common.h">
+      <Filter>TitleScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
