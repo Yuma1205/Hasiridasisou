@@ -10,7 +10,7 @@ public:
     void Update() override;
     void Draw() override;
     bool IsDead() const { return isDead; }
-    
+
 private:
     int hImage;
     float x, y;
@@ -19,4 +19,9 @@ private:
     bool isDead;
     bool direction;
     int  currentFrame;
+
+    int jumpCount;
+    int MaxjumpCount;
+
+
 };

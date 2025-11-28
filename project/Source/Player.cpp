@@ -1,5 +1,6 @@
 #include "Player.h"
 #include "Field.h"
+#include"../Library/Trigger.h"
 #include"GameOver.h"
 #include<assert.h>
 
@@ -29,6 +30,10 @@ Player::Player()
     x = 200.0f;
     y = 500.0f;
     vy = 0.0f;
+
+    jumpCount = 0;
+    MaxjumpCount = 1;
+
     onGround = false;
     isDead = false;
     direction = false;
@@ -40,6 +45,10 @@ Player::Player(int sx, int sy)
     x = (float)sx;
     y = (float)sy;
     vy = 0.0f;
+
+    jumpCount = 0;
+    MaxjumpCount = 1;
+
     onGround = false;
     isDead = false;
     direction = false;
@@ -54,6 +63,9 @@ void Player::Update()
     if (isDead) return;
     x += 5;  // 強制スクロールに追従
 
+    if (onGround && jumpCount < MaxjumpCount) {
+        jumpCount += 1;
+    }
 
     Field* field = FindGameObject<Field>();
     int scrollX = field->GetScrollX();
@@ -76,9 +88,19 @@ void Player::Update()
 
     // --- ジャンプ ---
     if (onGround) {
-        if (CheckHitKey(KEY_INPUT_SPACE)) {
+        if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
             vy = JUMP_POWER;
             onGround = false;
+        }
+    }
+
+    //---二段ジャンプ---
+    if (!onGround && jumpCount == MaxjumpCount)
+    {
+        if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE))
+        {
+            jumpCount -= 1;
+            vy = JUMP_POWER;
         }
     }
 
@@ -120,7 +142,7 @@ void Player::Update()
         }
     }
 
-   
+
 
     if (state == STATE_ATTACK) {
         count++;
@@ -158,29 +180,29 @@ void Player::Draw()
     int drawX = (int)(x - field->GetScrollX());
     int drawY = (int)y;
 
-    int srcX=0, srcY=0;
+    int srcX = 0, srcY = 0;
 
-     if (state == STATE_ATTACK) {
-         const int FRAME_X = 2;
-         const int FRAME_Y = 2;
-         const int TOTAL_FRAME = FRAME_X * FRAME_Y;
+    if (state == STATE_ATTACK) {
+        const int FRAME_X = 2;
+        const int FRAME_Y = 2;
+        const int TOTAL_FRAME = FRAME_X * FRAME_Y;
 
-         int index = pat % TOTAL_FRAME;
-         srcX = (4+(index % FRAME_X)) * FRAME_W;
-         srcY = (index / FRAME_X) * FRAME_H;
+        int index = pat % TOTAL_FRAME;
+        srcX = (4 + (index % FRAME_X)) * FRAME_W;
+        srcY = (index / FRAME_X) * FRAME_H;
     }
-     else {
-         const int FRAME_X = 2;//横
-         const int FRAME_Y = 3;//縦
-         const int TOTAL_FRAME = FRAME_X * FRAME_Y;
+    else {
+        const int FRAME_X = 2;//横
+        const int FRAME_Y = 3;//縦
+        const int TOTAL_FRAME = FRAME_X * FRAME_Y;
 
 
-         int index = pat % TOTAL_FRAME;
-         srcX = ((index % FRAME_X) + 2) * FRAME_W;
-         srcY = ((index / FRAME_X) + 3) * FRAME_H;
-     }
+        int index = pat % TOTAL_FRAME;
+        srcX = ((index % FRAME_X) + 2) * FRAME_W;
+        srcY = ((index / FRAME_X) + 3) * FRAME_H;
+    }
 
 
     DrawRectGraph(drawX, drawY, srcX, srcY, FRAME_W, FRAME_H, hImage, TRUE, !direction);
-  
+
 }

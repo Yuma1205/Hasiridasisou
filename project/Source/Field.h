@@ -22,6 +22,6 @@ private:
     int hImage;
     int scrollX;
     std::vector<Player*> players;
-    bool IsBlocked(int px, int py);
+    bool IsBlock(int px, int py);
 };
 
