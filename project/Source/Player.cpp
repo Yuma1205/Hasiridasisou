@@ -1,6 +1,6 @@
 #include "Player.h"
 #include "Field.h"
-//#include"../Library/Trigger.h"
+#include"../Library/Trigger.h"
 #include"GameOver.h"
 #include<assert.h>
 
@@ -88,22 +88,23 @@ void Player::Update()
     }
 
     // --- ジャンプ ---
-    //// if (onGround) {
-    //    if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
-    //        vy = JUMP_POWER;
-    //        onGround = false;
-    //    }
-    //}
+    if (onGround) {
+        if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
+            vy = JUMP_POWER;
+            onGround = false;
+        }
+    }
 
-    ////---二段ジャンプ---
-    //if (!onGround && jumpCount == MaxjumpCount)
-    //{
-    //    /*if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE))
-    //    {
-    //        jumpCount -= 1;
-    //        vy = JUMP_POWER;
-    //    }*/
-    //}
+    //---二段ジャンプ---
+    if (!onGround && jumpCount == MaxjumpCount)
+    {
+        if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE))
+        {
+            jumpCount -= 1;
+            vy = JUMP_POWER;
+        }
+    }
+
 
     y += vy;
 
