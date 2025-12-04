@@ -65,6 +65,9 @@
     <ClCompile Include="Source\Common.cpp">
       <Filter>TitleScene</Filter>
     </ClCompile>
+    <ClCompile Include="Trigger.cpp">
+      <Filter>Library</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -143,6 +146,9 @@
     </ClInclude>
     <ClInclude Include="Source\Common.h">
       <Filter>TitleScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Trigger.h">
+      <Filter>Library</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
