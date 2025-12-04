@@ -38,6 +38,10 @@ Field::Field(int stage)
 
 	hImage = LoadGraph("data/image/bgchar.png");
 
+	bgImage = LoadGraph("data/image/BackGround.png");  // パスは必要に応じて変更
+	GetGraphSize(bgImage, &bgWidth, nullptr);
+	bgScrollX = 0;
+
 	scrollX = 0;
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
@@ -55,11 +59,19 @@ Field::~Field()
 void Field::Update()
 {
 	scrollX += 5; //強制スクロールの場合
+	bgScrollX += 5;    // 背景用スクロール
 
+	// 背景だけループさせる
+	if (bgScrollX >= bgWidth) {
+		bgScrollX -= bgWidth;
+	}
 }
 
 void Field::Draw()
 {
+	DrawGraph(-bgScrollX, 0, bgImage, TRUE);
+	DrawGraph(bgWidth - bgScrollX, 0, bgImage, TRUE);
+
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 1) {

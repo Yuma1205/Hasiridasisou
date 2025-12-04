@@ -23,5 +23,12 @@ private:
     int scrollX;
     std::vector<Player*> players;
     bool IsBlock(int px, int py);
+
+    //――――――――――――――――――――――――
+    // ★ 背景ループ用変数（追加）
+    //――――――――――――――――――――――――
+    int bgImage;     // 背景画像
+    int bgWidth;     // 背景画像の横幅
+    int bgScrollX;   // 背景専用スクロール位置
 };
 
