@@ -12,18 +12,11 @@ static const float GROUND_Y = 600;
 const int FRAME_W = 64;
 const int FRAME_H = 64;
 
-enum State {
-    STATE_IDLE,
-    STATE_ATTACK
-};
-
-State state = STATE_IDLE;
-
-int count = 0;
-int pat = 0;
-
 const int IDLE_FRAMES = 6;
 const int ATTACK_FRAMES = 2;
+const int DEAD_FRAMES = 4;
+
+
 
 Player::Player()
 {
@@ -38,6 +31,12 @@ Player::Player()
     onGround = false;
     isDead = false;
     direction = false;
+    
+        state = STATE_IDLE;
+        count = 0;
+        pat = 0;
+        gameOverCalled = false;
+
 }
 
 Player::Player(int sx, int sy)
@@ -53,6 +52,11 @@ Player::Player(int sx, int sy)
     onGround = false;
     isDead = false;
     direction = false;
+        state = STATE_IDLE;
+        count = 0;
+        pat = 0;
+        gameOverCalled = false;
+
 }
 
 Player::~Player()
@@ -61,8 +65,21 @@ Player::~Player()
 
 void Player::Update()
 {
-    if (isDead) return;
-    x += 5;  // 強制スクロールに追従
+        switch (state)
+        {
+        case STATE_DEAD:
+            UpdateDead();
+            return;
+
+        case STATE_ATTACK:
+            UpdateAttack();
+            return;
+
+        case STATE_IDLE:
+        default:
+            UpdateIdle();
+            break;
+        }
 
     if (onGround && jumpCount < MaxjumpCount) {
         jumpCount += 1;
@@ -73,20 +90,28 @@ void Player::Update()
 
 
     // 横移動（スクロール）の前に壁チェック
-    int Right1 = field->HitCheckRight(x + 50, y + 5);
-    int Right2 = field->HitCheckRight(x + 50, y + 63);
-    int pushRight = max(Right1, Right2);
+    float nextX = x + 5;
+
+    int Right1 = field->HitCheckRight(nextX + 50, y + 5);
+    int Right2 = field->HitCheckRight(nextX + 50, y + 63);
+    
+    if (Right1 > 0 || Right2 > 0) {
+        //壁にめり込む前で止める
+        x = (int)(nextX / 64) * 64 - 50;
+
+        state = STATE_DEAD;
+        isDead = true;
+        count = 0;
+        pat = 0;
+        return;
+    }
+
+    x = nextX;
 
     int Left1 = field->HitCheckLeft(x + 14, y + 5);
     int Left2 = field->HitCheckLeft(x + 14, y + 63);
     int pushLeft = max(Left1, Left2);
-
-    // 地上のみ壁に当たったら押し戻す
-    if (onGround) {
-        x -= pushRight;
-        x += pushLeft;
-    }
-
+  
     // --- ジャンプ ---
     if (onGround) {
         if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
@@ -129,7 +154,10 @@ void Player::Update()
         else {
             onGround = false;
             if (field->OutOfMap(x, y)) {
-                new GameOver();
+                state = STATE_DEAD;
+                isDead = true;
+                count = 0;
+                pat = 0;
             }
         }
     }
@@ -143,10 +171,89 @@ void Player::Update()
             vy = 0;
         }
     }
+   
+    if (CheckHitKey(KEY_INPUT_E)) {
+        state = STATE_ATTACK;
+        count = 0;
+        pat = 0;
+        return;
+    }
+
+    
+
+}
+
+void Player::Draw()
+{
+    Field* field = FindGameObject<Field>();
+    int scrollX = field->GetScrollX();
+    int drawX;
+    if (state == STATE_DEAD) {
+        drawX = (int)x;   // スクロール無視
+    }
+    else {
+        drawX = (int)(x - field->GetScrollX());
+    }
+    int drawY = (int)y;
+
+    int srcX = 0, srcY = 0;
+
+    switch (state) {
+    case STATE_DEAD:
+    {
+        srcX = 6 * FRAME_W;
+        srcY = 5 * FRAME_H;
+        break;
+
+    }
+    case STATE_ATTACK:
+    {
+        const int FRAME_X = 2;
+        const int FRAME_Y = 2;
+        const int TOTAL_FRAME = FRAME_X * FRAME_Y;
+
+        int index = pat % TOTAL_FRAME;
+        srcX = (4 + (index % FRAME_X)) * FRAME_W;
+        srcY = (index / FRAME_X) * FRAME_H;
+        break;
+    }
+
+    case STATE_IDLE:
+    default:
+    {
+        const int FRAME_X = 2;//横に何枚使うか
+        const int FRAME_Y = 3;//縦に何枚使うか
+        const int TOTAL_FRAME = FRAME_X * FRAME_Y;//全部で何枚のフレームか
 
 
+        int index = pat % TOTAL_FRAME;
+        srcX = ((index % FRAME_X) + 2) * FRAME_W;//どこのフレームから使うか（横）
+        srcY = ((index / FRAME_X) + 3) * FRAME_H;//どこのフレームから使うか（縦）
+        break;
+    }
+    }
 
-    if (state == STATE_ATTACK) {
+    DrawRectGraph(drawX, drawY, srcX, srcY, FRAME_W, FRAME_H, hImage, TRUE, !direction);
+ 
+}
+
+bool Player::IsDead() const
+{
+    return isDead;
+}
+
+void Player::UpdateDead()
+{
+    if (gameOverCalled)return;
+    
+    new GameOver();
+    gameOverCalled = true;
+
+}
+
+void Player::UpdateAttack()
+{
+    
         count++;
         if (count >= 4) {
             count = 0;
@@ -157,54 +264,16 @@ void Player::Update()
             }
         }
         return;
-    }
+    
 
-    if (CheckHitKey(KEY_INPUT_E)) {
-        state = STATE_ATTACK;
-        count = 0;
-        pat = 0;
-        return;
-    }
+}
 
+void Player::UpdateIdle()
+{
     count++;
     if (count >= 10) {
         count = 0;
         pat++;
         if (pat >= IDLE_FRAMES)pat = 0;
     }
-
-}
-
-void Player::Draw()
-{
-    Field* field = FindGameObject<Field>();
-    int scrollX = field->GetScrollX();
-    int drawX = (int)(x - field->GetScrollX());
-    int drawY = (int)y;
-
-    int srcX = 0, srcY = 0;
-
-    if (state == STATE_ATTACK) {
-        const int FRAME_X = 2;
-        const int FRAME_Y = 2;
-        const int TOTAL_FRAME = FRAME_X * FRAME_Y;
-
-        int index = pat % TOTAL_FRAME;
-        srcX = (4 + (index % FRAME_X)) * FRAME_W;
-        srcY = (index / FRAME_X) * FRAME_H;
-    }
-    else {
-        const int FRAME_X = 2;//横
-        const int FRAME_Y = 3;//縦
-        const int TOTAL_FRAME = FRAME_X * FRAME_Y;
-
-
-        int index = pat % TOTAL_FRAME;
-        srcX = ((index % FRAME_X) + 2) * FRAME_W;
-        srcY = ((index / FRAME_X) + 3) * FRAME_H;
-    }
-
-
-    DrawRectGraph(drawX, drawY, srcX, srcY, FRAME_W, FRAME_H, hImage, TRUE, !direction);
-
 }

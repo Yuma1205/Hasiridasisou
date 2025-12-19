@@ -9,12 +9,30 @@ public:
     ~Player();
     void Update() override;
     void Draw() override;
-    bool IsDead() const { return isDead; }
+    void UpdateDead();
+    void UpdateAttack();
+    void UpdateIdle();
+    
+    bool IsDead() const;
 
 private:
     int hImage;
     float x, y;
     float vy;
+
+    
+        enum State {
+            STATE_IDLE,
+            STATE_ATTACK,
+            STATE_DEAD
+        };
+
+        State state;
+        int count;
+        int pat;
+        bool gameOverCalled;
+
+
     bool onGround;
     bool isDead;
     bool direction;
