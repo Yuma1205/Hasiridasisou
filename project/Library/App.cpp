@@ -13,15 +13,19 @@ void AppInit()
 
 void AppUpdate()
 {
+    
 	SceneManager::Update();
-	ObjectManager::Update();
+    //ObjectManager::Update();
+
 }
 
 void AppDraw()
 {
-	Time::Refresh();
-	ObjectManager::Draw();
-	SceneManager::Draw();
+    
+    Time::Refresh();
+    //ObjectManager::Draw();
+    SceneManager::Draw();
+
 }
 
 void AppRelease()

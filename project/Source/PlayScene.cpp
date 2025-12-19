@@ -2,43 +2,38 @@
 #include "Player.h"
 #include "Field.h"
 #include "Common.h"
+#include "../Library/SceneManager.h"
+#include "../Library/ObjectManager.h"
 
 PlayScene::PlayScene()
 {
-    gameState = STATE_READY;
-    stateTimer = 0;
+    m_readyGo = new ReadyGoManager();
     new Field(1);
 
 }
 
 PlayScene::~PlayScene()
 {
+    if (m_readyGo) {
+        delete m_readyGo;
+        m_readyGo = nullptr;
+    }
 }
 
 void PlayScene::Update()
 {
-    switch (gameState)
-    {
-    case STATE_READY:
-        stateTimer++;
-        if (stateTimer > 90) {   // 1•b
-            gameState = STATE_GO;
-            stateTimer = 0;
-            return;
-        }
-        return;    //ƒQ[ƒ€XV‚ðŽ~‚ß‚é
 
-    case STATE_GO:
-        stateTimer++;
-        if (stateTimer > 30) {   // 0.5•b
-            gameState = STATE_PLAY;
-        }
-        return;    //ƒQ[ƒ€XV‚ðŽ~‚ß‚é
+    m_readyGo->Update();
 
-    case STATE_PLAY:
-        //‚±‚±‚É—ˆ‚Ä‰‚ß‚Ä’ÊíƒQ[ƒ€‚ª“®‚­
-        break;
+
+    if (m_readyGo->IsActive()) {
+ 
+        return;
     }
+
+    ObjectManager::Update();
+
+    
     if (CheckHitKey(KEY_INPUT_T)) {
         SceneManager::ChangeScene("TITLE");
     }
@@ -46,18 +41,9 @@ void PlayScene::Update()
 
 void PlayScene::Draw()
 {
-    // READY
-    if (gameState == STATE_READY) {
-        DrawString(600, 300, "Ready", GetColor(255, 255, 255));
-    }
-    // GO
-    else if (gameState == STATE_GO) {
-        DrawString(600, 300, "Go!", GetColor(255, 255, 0));
-    }
-    // ’ÊíƒQ[ƒ€‚Ì•`‰æ
-    if (gameState == STATE_PLAY) {
-        // ƒ{[ƒ‹‚âƒuƒƒbƒN‚Ì•`‰æ
-    }
     DrawString(0, 0, "PLAY SCENE", GetColor(255, 255, 255));
     DrawString(100, 400, "Push [T]Key To Title", GetColor(255, 255, 255));
+
+    ObjectManager::Draw();
+    m_readyGo->Draw();
 }
