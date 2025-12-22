@@ -12,7 +12,7 @@ public:
     void UpdateDead();
     void UpdateAttack();
     void UpdateIdle();
-    
+
     bool IsDead() const;
 
 private:
@@ -20,17 +20,17 @@ private:
     float x, y;
     float vy;
 
-    
-        enum State {
-            STATE_IDLE,
-            STATE_ATTACK,
-            STATE_DEAD
-        };
 
-        State state;
-        int count;
-        int pat;
-        bool gameOverCalled;
+    enum State {
+        STATE_IDLE,
+        STATE_ATTACK,
+        STATE_DEAD
+    };
+
+    State state;
+    int count;
+    int pat;
+    bool gameOverCalled;
 
 
     bool onGround;
@@ -41,5 +41,13 @@ private:
     int jumpCount;
     int MaxjumpCount;
 
+    // --- âåÉAÉjÉÅóp ---
+    int hSmoke;
+    int smokeCount;
+    int smokePat;
+    bool smokeEnd;
+
+    float deadDrawX;
+    float deadDrawY;
 
 };

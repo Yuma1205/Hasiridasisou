@@ -31,11 +31,17 @@ Player::Player()
     onGround = false;
     isDead = false;
     direction = false;
-    
-        state = STATE_IDLE;
-        count = 0;
-        pat = 0;
-        gameOverCalled = false;
+
+    state = STATE_IDLE;
+    count = 0;
+    pat = 0;
+    gameOverCalled = false;
+
+    hSmoke = LoadGraph("data/image/smoke.png");
+
+    smokeCount = 0;
+    smokePat = 0;
+    smokeEnd = false;
 
 }
 
@@ -52,10 +58,17 @@ Player::Player(int sx, int sy)
     onGround = false;
     isDead = false;
     direction = false;
-        state = STATE_IDLE;
-        count = 0;
-        pat = 0;
-        gameOverCalled = false;
+
+    state = STATE_IDLE;
+    count = 0;
+    pat = 0;
+    gameOverCalled = false;
+
+    hSmoke = LoadGraph("data/image/smoke.png");
+
+    smokeCount = 0;
+    smokePat = 0;
+    smokeEnd = false;
 
 }
 
@@ -65,21 +78,21 @@ Player::~Player()
 
 void Player::Update()
 {
-        switch (state)
-        {
-        case STATE_DEAD:
-            UpdateDead();
-            return;
+    switch (state)
+    {
+    case STATE_DEAD:
+        UpdateDead();
+        return;
 
-        case STATE_ATTACK:
-            UpdateAttack();
-            return;
+    case STATE_ATTACK:
+        UpdateAttack();
+        break;
 
-        case STATE_IDLE:
-        default:
-            UpdateIdle();
-            break;
-        }
+    case STATE_IDLE:
+    default:
+        UpdateIdle();
+        break;
+    }
 
     if (onGround && jumpCount < MaxjumpCount) {
         jumpCount += 1;
@@ -94,16 +107,27 @@ void Player::Update()
 
     int Right1 = field->HitCheckRight(nextX + 50, y + 5);
     int Right2 = field->HitCheckRight(nextX + 50, y + 63);
-    
+
     if (Right1 > 0 || Right2 > 0) {
         //壁にめり込む前で止める
         x = (int)(nextX / 64) * 64 - 50;
 
         state = STATE_DEAD;
         isDead = true;
+
+        deadDrawX = x - field->GetScrollX();
+        deadDrawY = y;
+
         count = 0;
         pat = 0;
+
+        // 煙初期化
+        smokeCount = 0;
+        smokePat = 0;
+        smokeEnd = false;
+
         return;
+
     }
 
     x = nextX;
@@ -111,7 +135,7 @@ void Player::Update()
     int Left1 = field->HitCheckLeft(x + 14, y + 5);
     int Left2 = field->HitCheckLeft(x + 14, y + 63);
     int pushLeft = max(Left1, Left2);
-  
+
     // --- ジャンプ ---
     if (onGround) {
         if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
@@ -156,8 +180,20 @@ void Player::Update()
             if (field->OutOfMap(x, y)) {
                 state = STATE_DEAD;
                 isDead = true;
+
+                deadDrawX = x - field->GetScrollX();
+                deadDrawY = y;
+
                 count = 0;
                 pat = 0;
+
+                // 煙初期化
+                smokeCount = 0;
+                smokePat = 0;
+                smokeEnd = false;
+
+                return;
+
             }
         }
     }
@@ -171,16 +207,12 @@ void Player::Update()
             vy = 0;
         }
     }
-   
-    if (CheckHitKey(KEY_INPUT_E)) {
+
+    if (CheckHitKey(KEY_INPUT_E) && state != STATE_ATTACK) {
         state = STATE_ATTACK;
         count = 0;
         pat = 0;
-        return;
     }
-
-    
-
 }
 
 void Player::Draw()
@@ -188,13 +220,20 @@ void Player::Draw()
     Field* field = FindGameObject<Field>();
     int scrollX = field->GetScrollX();
     int drawX;
+    int drawY;
+
     if (state == STATE_DEAD) {
-        drawX = (int)x;   // スクロール無視
+        deadDrawX = x;
+        deadDrawY = y;
+        drawX = (int)(deadDrawX - field->GetScrollX());
+        drawY = (int)deadDrawY;
     }
+
     else {
         drawX = (int)(x - field->GetScrollX());
+        drawY = (int)y;
     }
-    int drawY = (int)y;
+
 
     int srcX = 0, srcY = 0;
 
@@ -204,6 +243,7 @@ void Player::Draw()
         srcX = 6 * FRAME_W;
         srcY = 5 * FRAME_H;
         break;
+
 
     }
     case STATE_ATTACK:
@@ -234,7 +274,24 @@ void Player::Draw()
     }
 
     DrawRectGraph(drawX, drawY, srcX, srcY, FRAME_W, FRAME_H, hImage, TRUE, !direction);
- 
+
+    // --- 煙描画 ---
+    if (state == STATE_DEAD && !smokeEnd) {
+        const int SMOKE_W = 64;
+        const int SMOKE_H = 64;
+
+        int smokeX = smokePat * SMOKE_W;
+        int smokeY = 0;
+
+        DrawExtendGraph(
+            drawX,
+            drawY,
+            drawX + 64,
+            drawY + 64,
+            hSmoke,
+            TRUE
+        );
+    }
 }
 
 bool Player::IsDead() const
@@ -244,27 +301,40 @@ bool Player::IsDead() const
 
 void Player::UpdateDead()
 {
-    if (gameOverCalled)return;
-    
-    new GameOver();
-    gameOverCalled = true;
+    if (smokeEnd) {
+        if (!gameOverCalled) {
+            new GameOver();
+            gameOverCalled = true;
+        }
+        return;
+    }
 
+    smokeCount++;
+    if (smokeCount >= 6) { // 煙の速さ
+        smokeCount = 0;
+        smokePat++;
+
+        if (smokePat >= 6) { // 煙のコマ数（画像に合わせる）
+            smokeEnd = true;
+        }
+    }
 }
+
 
 void Player::UpdateAttack()
 {
-    
-        count++;
-        if (count >= 4) {
-            count = 0;
-            pat++;
-            if (pat >= ATTACK_FRAMES) {
-                pat = 0;
-                state = STATE_IDLE;
-            }
+
+    count++;
+    if (count >= 4) {
+        count = 0;
+        pat++;
+        if (pat >= ATTACK_FRAMES) {
+            pat = 0;
+            state = STATE_IDLE;
         }
-        return;
-    
+    }
+    return;
+
 
 }
 
