@@ -36,7 +36,7 @@ void Greenslime::Update()
     // --- 画面外判定 ---
     int scrollX = field->GetScrollX();
     float drawX = x - scrollX;
-    if (drawX < -150 || drawX > 900) return;
+    if (drawX < -150 || drawX > 1280) return;
 
 
     // --- プレイヤーとの当たり判定 ---
