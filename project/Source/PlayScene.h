@@ -11,8 +11,8 @@ private:
     int hReady;
     int hGo;
 
-    const int TIME_READY = 90; // 2秒
-    const int TIME_GO = 60;     // 1秒
+    const int TIME_READY = 60; // 2秒
+    const int TIME_GO = 45;     // 1秒
 
 public:
     // コンストラクタ（読み込み）

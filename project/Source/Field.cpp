@@ -3,6 +3,7 @@
 #include "Player.h"
 #include "CsvReader.h"
 #include "Greenslime.h"
+#include "Redslime.h"
 
 using namespace std;
 
@@ -43,6 +44,9 @@ Field::Field(int stage)
 			}
 			if (maps[y][x] == 3) {
 				new Greenslime(x * 64, y * 64);
+			}
+			if (maps[y][x] == 4) {
+				new Redslime(x * 64, y * 64);
 			}
 		}
 	}

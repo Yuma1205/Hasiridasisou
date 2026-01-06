@@ -159,6 +159,7 @@
     <ClInclude Include="Source\GameOver.h" />
     <ClInclude Include="Source\Greenslime.h" />
     <ClInclude Include="Source\Player.h" />
+    <ClInclude Include="Source\Redslime.h" />
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
@@ -187,6 +188,7 @@
     <ClCompile Include="Source\Greenslime.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />
+    <ClCompile Include="Source\Redslime.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
     <ClCompile Include="Trigger.cpp" />

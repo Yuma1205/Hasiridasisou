@@ -1,19 +1,19 @@
-#include "Greenslime.h"
+#include "Redslime.h"
 #include "Field.h"
 #include "Player.h"
 
 static const float GRAVITY = 0.7f;
 
-Greenslime::Greenslime(int sx, int sy)
+Redslime::Redslime(int sx, int sy)
 {
     // 画像読み込み
-    hImage = LoadGraph("data/image/Greenslime2.png");
+    hImage = LoadGraph("data/image/Redslime2.png");
 
     x = (float)sx;
     y = (float)sy;
 
     // 初期化
-    vx = -1.0f; // 左へ進む
+    vx = -3.0f; // 左へ進む
     vy = 0.0f;
     count = 0;
     pat = 0;
@@ -21,11 +21,11 @@ Greenslime::Greenslime(int sx, int sy)
     isDead = false;
 }
 
-Greenslime::~Greenslime()
+Redslime::~Redslime()
 {
 }
 
-void Greenslime::Update()
+void Redslime::Update()
 {
     // 死んでいたら処理しない
     if (isDead) return;
@@ -56,11 +56,11 @@ void Greenslime::Update()
         float ph = 60;
 
         // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 15.0f; // 左右を15ピクセルずつ縮める
+        float hitMargin = 15.0f; // ★左右を15ピクセルずつ縮める
 
         float sx = x + hitMargin;         // 左端を右にずらす
-        float sy = y;                     // ★ここを追加しました（Y座標の定義）
-        float sw = 90.0f - hitMargin * 2; // 幅を縮める
+        float sy = y;                     // Y座標
+        float sw = 90.0f - hitMargin * 2; // 幅を縮める(左右分引く)
         float sh = 64;
 
         // 矩形の当たり判定
@@ -112,7 +112,7 @@ void Greenslime::Update()
     }
 }
 
-void Greenslime::Draw()
+void Redslime::Draw()
 {
     // 死んでいたら描画しない
     if (isDead) return;
