@@ -68,6 +68,9 @@
     <ClCompile Include="Trigger.cpp">
       <Filter>Library</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Greenslime.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -149,6 +152,9 @@
     </ClInclude>
     <ClInclude Include="Trigger.h">
       <Filter>Library</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Greenslime.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

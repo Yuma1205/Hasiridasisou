@@ -2,6 +2,7 @@
 #include <vector>
 #include "Player.h"
 #include "CsvReader.h"
+#include "Greenslime.h"
 
 using namespace std;
 
@@ -39,6 +40,9 @@ Field::Field(int stage)
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 2) {
 				new Player(x * 64, y * 64);
+			}
+			if (maps[y][x] == 3) {
+				new Greenslime(x * 64, y * 64);
 			}
 		}
 	}

@@ -299,6 +299,23 @@ bool Player::IsDead() const
     return isDead;
 }
 
+void Player::Bounce()
+{
+    vy = -10.0f; // ’µ‚Ë‚é‹­‚³
+    onGround = false;
+    jumpCount = 1;
+}
+
+void Player::Dead()
+{
+    if (state != STATE_DEAD) {
+        state = STATE_DEAD;
+        isDead = true;
+        count = 0;
+        pat = 0;
+    }
+}
+
 void Player::UpdateDead()
 {
     if (smokeEnd) {

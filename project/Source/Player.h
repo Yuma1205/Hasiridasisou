@@ -15,6 +15,15 @@ public:
 
     bool IsDead() const;
 
+    
+    float GetX() const { return x; }
+    float GetY() const { return y; }
+    float GetVy() const { return vy; }
+
+    // ★追加：敵との接触時のアクション
+    void Bounce();  
+    void Dead();    
+
 private:
     int hImage;
     float x, y;
