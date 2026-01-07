@@ -213,6 +213,8 @@ void Player::Update()
         count = 0;
         pat = 0;
     }
+
+    
 }
 
 void Player::Draw()
@@ -335,6 +337,8 @@ void Player::UpdateDead()
             smokeEnd = true;
         }
     }
+
+    
 }
 
 

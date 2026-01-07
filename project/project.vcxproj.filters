@@ -77,6 +77,9 @@
     <ClCompile Include="Source\StageSelectScene.cpp">
       <Filter>StageSelectScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GameOverScene.cpp">
+      <Filter>GameOverScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -168,6 +171,9 @@
     <ClInclude Include="Source\StageSelectScene.h">
       <Filter>StageSelectScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GameOverScene.h">
+      <Filter>GameOverScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -187,6 +193,9 @@
     </Filter>
     <Filter Include="StageSelectScene">
       <UniqueIdentifier>{79aa95e7-cdb1-457f-bd24-a4aea4500e58}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GameOverScene">
+      <UniqueIdentifier>{069f9c54-c88b-4f78-a90a-9c914cea4d0c}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>
