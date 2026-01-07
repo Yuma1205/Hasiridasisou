@@ -55,8 +55,8 @@ void Greenslime::Update()
         float pw = 24;
         float ph = 60;
 
-        // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 15.0f; // 左右を15ピクセルずつ縮める
+        //スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
+        float hitMargin = 10.0f; 
 
         float sx = x + hitMargin;         // 左端を右にずらす
         float sy = y;                     // ★ここを追加しました（Y座標の定義）
@@ -119,9 +119,10 @@ void Greenslime::Draw()
 
     Field* field = FindGameObject<Field>();
     int scrollX = field ? field->GetScrollX() : 0;
+    int scrollY = field ? field->GetScrollY() : 0;
 
     int drawX = (int)(x - scrollX);
-    int drawY = (int)y;
+    int drawY = (int)(y - scrollY);
 
     int srcX = pat * 90;
     DrawRectGraph(drawX, drawY, srcX, 0, 90, 64, hImage, TRUE, FALSE);

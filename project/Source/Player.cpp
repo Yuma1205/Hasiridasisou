@@ -103,7 +103,7 @@ void Player::Update()
 
 
     // 横移動（スクロール）の前に壁チェック
-    float nextX = x + 5;
+    float nextX = x + 7;
 
     int Right1 = field->HitCheckRight(nextX + 50, y + 5);
     int Right2 = field->HitCheckRight(nextX + 50, y + 63);
@@ -219,6 +219,7 @@ void Player::Draw()
 {
     Field* field = FindGameObject<Field>();
     int scrollX = field->GetScrollX();
+    int scrollY = field->GetScrollY();
     int drawX;
     int drawY;
 
@@ -226,12 +227,12 @@ void Player::Draw()
         deadDrawX = x;
         deadDrawY = y;
         drawX = (int)(deadDrawX - field->GetScrollX());
-        drawY = (int)deadDrawY;
+        drawY = (int)(deadDrawY - scrollY);
     }
 
     else {
         drawX = (int)(x - field->GetScrollX());
-        drawY = (int)y;
+        drawY = (int)(y - scrollY);
     }
 
 
