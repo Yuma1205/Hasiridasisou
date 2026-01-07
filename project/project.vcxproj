@@ -163,6 +163,7 @@
     <ClInclude Include="Source\Screen.h" />
     <ClInclude Include="Source\PlayScene.h" />
     <ClInclude Include="Source\SceneFactory.h" />
+    <ClInclude Include="Source\StageSelectScene.h" />
     <ClInclude Include="Source\TitleScene.h" />
     <ClInclude Include="Trigger.h" />
   </ItemGroup>
@@ -190,6 +191,7 @@
     <ClCompile Include="Source\PlayScene.cpp" />
     <ClCompile Include="Source\Redslime.cpp" />
     <ClCompile Include="Source\SceneFactory.cpp" />
+    <ClCompile Include="Source\StageSelectScene.cpp" />
     <ClCompile Include="Source\TitleScene.cpp" />
     <ClCompile Include="Trigger.cpp" />
   </ItemGroup>

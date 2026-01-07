@@ -8,7 +8,8 @@
 PlayScene::PlayScene()
 {
     m_readyGo = new ReadyGoManager();
-    new Field(1);
+    int stage = SceneManager::GetNextStage();
+    new Field(stage);
 
 }
 

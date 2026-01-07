@@ -37,7 +37,6 @@ Field::Field(int stage)
 	bgScrollX = 0;
 
 	scrollX = 0;
-	scrollY = 0;
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 2) {
@@ -62,17 +61,8 @@ void Field::Update()
 	Player* player = FindGameObject<Player>();
 
 	if (player && !player->IsDead()) {
-		scrollX += 7;      // 強制スクロール
-		bgScrollX += 7;    // 背景用スクロール
-
-		// 基本的には「プレイヤーの高さ - 100」を目標にする
-		int targetY = (int)player->GetY() - 75;
-
-		if (targetY > 0) {
-			targetY = 0;
-		}
-
-		scrollY = targetY;
+		scrollX += 5; //強制スクロールの場合
+		bgScrollX += 5;    // 背景用スクロール
 	}
 	
 
@@ -90,7 +80,7 @@ void Field::Draw()
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 1) {
-				DrawRectGraph(x * 64 - scrollX, y * 64 - scrollY, 0, 32, 64, 64, hImage, 1);
+				DrawRectGraph(x * 64 - scrollX, y * 64, 0, 32, 64, 64, hImage, 1);
 			}
 		}
 	}
@@ -151,7 +141,7 @@ int Field::HitCheckDown(int px, int py)
 
 bool Field::OutOfMap(int px, int py)
 {
-	if (py > 0 + 64 * (int)maps.size()) {
+	if (py > 0 + 64 * maps.size()) {
 		return true;
 	}
 	return false;
@@ -161,6 +151,5 @@ bool Field::OutOfMap(int px, int py)
 
 
 int Field::GetScrollX() const { return scrollX; }
-int Field::GetScrollY() const { return scrollY; }
 void Field::SetScrollX(int sx) { scrollX = sx; }
 

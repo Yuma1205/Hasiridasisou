@@ -10,6 +10,8 @@ namespace
 	SceneBase* m_currentScene; // 今のシーンのインスタンスを保持
 	SceneFactory* m_factory;   // シーン切り替え用のFactoryのポインター
 	bool m_exitRequest;
+
+	int m_nextStage = 1;
 };
 
 void SceneManager::Init()
@@ -86,4 +88,14 @@ void SceneManager::Exit()
 bool SceneManager::IsExit()
 {
 	return m_exitRequest;
+}
+
+void SceneManager::SetNextStage(int stage)
+{
+	m_nextStage = stage;
+}
+
+int SceneManager::GetNextStage()
+{
+	return m_nextStage;
 }

@@ -2,7 +2,8 @@
 #include "../Library/SceneBase.h"
 #include "DxLib.h"     // DXƒ‰ƒCƒuƒ‰ƒŠ
 
-class ReadyGoManager {
+class ReadyGoManager:public SceneBase 
+{
 private:
     int timer;
     int state; // 0:Ready, 1:Go, 2:Finished
@@ -86,6 +87,7 @@ class PlayScene : public SceneBase
 {
 private:
     ReadyGoManager* m_readyGo;
+    int stageNo;
 
 public:
     PlayScene();

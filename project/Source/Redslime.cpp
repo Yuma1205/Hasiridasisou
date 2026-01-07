@@ -55,8 +55,8 @@ void Redslime::Update()
         float pw = 24;
         float ph = 60;
 
-        //スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 10.0f; 
+        // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
+        float hitMargin = 15.0f; // ★左右を15ピクセルずつ縮める
 
         float sx = x + hitMargin;         // 左端を右にずらす
         float sy = y;                     // Y座標
@@ -119,10 +119,9 @@ void Redslime::Draw()
 
     Field* field = FindGameObject<Field>();
     int scrollX = field ? field->GetScrollX() : 0;
-    int scrollY = field ? field->GetScrollY() : 0;
 
     int drawX = (int)(x - scrollX);
-    int drawY = (int)(y - scrollY);
+    int drawY = (int)y;
 
     int srcX = pat * 90;
     DrawRectGraph(drawX, drawY, srcX, 0, 90, 64, hImage, TRUE, FALSE);

@@ -47,6 +47,9 @@ namespace SceneManager
 	/// </summary>
 	/// <returns>I—¹‚µ‚æ‚¤‚Æ‚µ‚Ä‚¢‚éê‡‚Étrue</returns>
 	bool IsExit();
+
+	void SetNextStage(int stage);
+	int GetNextStage();
 };
 
 template<class C>

@@ -74,6 +74,9 @@
     <ClCompile Include="Source\Redslime.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\StageSelectScene.cpp">
+      <Filter>StageSelectScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -162,6 +165,9 @@
     <ClInclude Include="Source\Redslime.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\StageSelectScene.h">
+      <Filter>StageSelectScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -178,6 +184,9 @@
     </Filter>
     <Filter Include="ImGui">
       <UniqueIdentifier>{a717257b-67b3-4bfa-834c-1e34032b33b0}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="StageSelectScene">
+      <UniqueIdentifier>{79aa95e7-cdb1-457f-bd24-a4aea4500e58}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

@@ -12,7 +12,6 @@ public:
     void Update() override;
     void Draw() override;
     int GetScrollX() const;
-    int GetScrollY() const;
     void SetScrollX(int sx);
     int HitCheckRight(int px, int py);
     int HitCheckLeft(int px, int py);
@@ -22,9 +21,9 @@ public:
 private:
     int hImage;
     int scrollX;
-    int scrollY;
     std::vector<Player*> players;
     bool IsBlock(int px, int py);
+   
 
     //――――――――――――――――――――――――
     // ★ 背景ループ用変数（追加）
