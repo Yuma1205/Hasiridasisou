@@ -34,7 +34,9 @@ void PlayScene::Update()
 
     ObjectManager::Update();
 
-    
+    if (CheckHitKey(KEY_INPUT_O)) {
+        SceneManager::ChangeScene("TITLE");
+    }
     
 }
 
