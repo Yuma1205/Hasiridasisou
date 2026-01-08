@@ -37,6 +37,7 @@ Field::Field(int stage)
 	bgScrollX = 0;
 
 	scrollX = 0;
+	scrollY = 0;
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 2) {
@@ -63,9 +64,13 @@ void Field::Update()
 	if (player && !player->IsDead()) {
 		scrollX += 5; //強制スクロールの場合
 		bgScrollX += 5;    // 背景用スクロール
-	}
-	
 
+		int targetY = (int)player->GetY() - 75;
+		if (targetY > 0) {
+			targetY = 0;
+		}
+		scrollY = targetY;
+	}
 	// 背景だけループさせる
 	if (bgScrollX >= bgWidth) {
 		bgScrollX -= bgWidth;
@@ -80,7 +85,7 @@ void Field::Draw()
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 1) {
-				DrawRectGraph(x * 64 - scrollX, y * 64, 0, 32, 64, 64, hImage, 1);
+				DrawRectGraph(x * 64 - scrollX, y * 64 - scrollY, 0, 32, 64, 64, hImage, 1);
 			}
 		}
 	}
@@ -136,7 +141,7 @@ int Field::HitCheckDown(int px, int py)
 
 bool Field::OutOfMap(int px, int py)
 {
-	if (py > 64 * maps.size()) {
+	if (py > 64 * (int)maps.size()) {
 		return true;
 	}
 	return false;

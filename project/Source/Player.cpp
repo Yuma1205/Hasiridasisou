@@ -100,6 +100,7 @@ void Player::Update()
 
     Field* field = FindGameObject<Field>();
     int scrollX = field->GetScrollX();
+    int scrollY = field->GetScrollY();
 
 
     // 横移動（スクロール）の前に壁チェック
@@ -206,10 +207,7 @@ void Player::Update()
             y += push;
             vy = 0;
         }
-        if (y < 0) {
-            y = 0;
-            vy = 0;
-        }
+       
     }
 
     if (CheckHitKey(KEY_INPUT_E) && state != STATE_ATTACK) {
@@ -233,7 +231,7 @@ void Player::Draw()
         deadDrawX = x;
         deadDrawY = y;
         drawX = (int)(deadDrawX - field->GetScrollX());
-        drawY = (int)deadDrawY;
+        drawY = (int)(deadDrawY - scrollY);
     }
 
     else {
