@@ -11,9 +11,9 @@ public:
     ~Field();
     void Update() override;
     void Draw() override;
-    int GetScrollX() const;
-    int GetScrollY() const;
-    void SetScrollX(int sx);
+    int GetScrollX() const { return scrollX; }
+    int GetScrollY() const { return scrollY; }
+    void SetScrollX(int sx) { scrollX = sx; }
     int HitCheckRight(int px, int py);
     int HitCheckLeft(int px, int py);
     int HitCheckUp(int px, int py);

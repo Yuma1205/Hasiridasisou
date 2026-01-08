@@ -145,6 +145,3 @@ bool Field::OutOfMap(int px, int py)
 
 
 
-int Field::GetScrollX() const { return scrollX; }
-void Field::SetScrollX(int sx) { scrollX = sx; }
-
