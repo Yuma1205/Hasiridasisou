@@ -27,7 +27,7 @@ void StageSelectScene::Update()
 		if (selectStage < 1)selectStage = 1;
 	}
 
-	if (CheckHitKey(KEY_INPUT_Z))
+	if (CheckHitKey(KEY_INPUT_RETURN))
 	{
 		SceneManager::SetNextStage(selectStage);
 		SceneManager::ChangeScene("PLAY");
@@ -48,5 +48,5 @@ void StageSelectScene::Draw()
 			"STAGE %d", i);
 	}
 
-	DrawString(180, 320, "© ¨ : ‘I‘ð  Z : Œˆ’è", GetColor(200, 200, 200));
+	DrawString(180, 320, "© ¨ : ‘I‘ð  ENTER : Œˆ’è", GetColor(200, 200, 200));
 }

@@ -88,7 +88,7 @@ void Field::Draw()
 
 bool Field::IsBlock(int px, int py)
 {
-	if (py < 0 || py >= maps.size())return false;
+	if (py >= maps.size())return false;
 	if (px < 0 || px >= maps[py].size())return false;
 
 	return maps[py][px] == 1;
@@ -96,52 +96,47 @@ bool Field::IsBlock(int px, int py)
 
 int Field::HitCheckRight(int px, int py)
 {
-	if (py < 0)
-		return 0;
+	if (py < 0)return 0;
 	int x = px / 64;
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return px % 64 + 1;
-	return 0;
+	
 }
 
 int Field::HitCheckLeft(int px, int py)
 {
-	if (py < 0)
-		return 0;
+	if (py < 0)return 0;
 	int x = px / 64;
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return 64 - px % 64;
-	return 0;
+	
 }
 
 int Field::HitCheckUp(int px, int py)
 {
-	if (py < 0)
-		return 0;
+	if (py < 0)return 0;
 	int x = px / 64;
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return 64 - py % 64;
-	return 0;
+	
 }
 
 int Field::HitCheckDown(int px, int py)
 {
-	if (py < 0) {
-		return 0;
-	}
+	if (py < 0)return 0;
 	int x = px / 64;
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return py % 64 + 1;
-	return 0;
+	
 }
 
 bool Field::OutOfMap(int px, int py)
 {
-	if (py > 0 + 64 * maps.size()) {
+	if (py > 64 * maps.size()) {
 		return true;
 	}
 	return false;

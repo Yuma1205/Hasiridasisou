@@ -206,6 +206,10 @@ void Player::Update()
             y += push;
             vy = 0;
         }
+        if (y < 0) {
+            y = 0;
+            vy = 0;
+        }
     }
 
     if (CheckHitKey(KEY_INPUT_E) && state != STATE_ATTACK) {

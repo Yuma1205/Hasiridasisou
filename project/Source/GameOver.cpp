@@ -14,7 +14,7 @@ GameOver::~GameOver()
 
 void GameOver::Update()
 {
-	if (CheckHitKey(KEY_INPUT_RIGHT)) {
+	if (CheckHitKey(KEY_INPUT_RETURN)) {
 		SceneManager::ChangeScene("GAMEOVER");
 	}
 }
@@ -22,5 +22,5 @@ void GameOver::Update()
 void GameOver::Draw()
 {
 	DrawGraph(200, 100, hImage, TRUE);
-	DrawString(200, 200, "‰E–îˆó‚ð‰Ÿ‚µ‚Ä", GetColor(255, 255, 255));
+	DrawString(200, 200, "ENTER‚ð‰Ÿ‚µ‚Ä", GetColor(255, 255, 255));
 }
