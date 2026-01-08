@@ -221,6 +221,7 @@ void Player::Draw()
 {
     Field* field = FindGameObject<Field>();
     int scrollX = field->GetScrollX();
+    int scrollY = field->GetScrollY();
     int drawX;
     int drawY;
 
@@ -233,7 +234,7 @@ void Player::Draw()
 
     else {
         drawX = (int)(x - field->GetScrollX());
-        drawY = (int)y;
+        drawY = (int)(y - scrollY);
     }
 
 

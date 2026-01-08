@@ -119,9 +119,10 @@ void Redslime::Draw()
 
     Field* field = FindGameObject<Field>();
     int scrollX = field ? field->GetScrollX() : 0;
+    int scrollY = field ? field->GetScrollY() : 0;
 
     int drawX = (int)(x - scrollX);
-    int drawY = (int)y;
+    int drawY = (int)(y - scrollY);
 
     int srcX = pat * 90;
     DrawRectGraph(drawX, drawY, srcX, 0, 90, 64, hImage, TRUE, FALSE);
