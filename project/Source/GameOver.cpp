@@ -21,6 +21,6 @@ void GameOver::Update()
 
 void GameOver::Draw()
 {
-	DrawGraph(200, 100, hImage, TRUE);
+	DrawGraph(100, 100, hImage, TRUE);
 	DrawString(200, 200, "ENTER‚ð‰Ÿ‚µ‚Ä", GetColor(255, 255, 255));
 }

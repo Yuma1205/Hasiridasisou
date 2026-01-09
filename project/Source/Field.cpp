@@ -4,6 +4,7 @@
 #include "CsvReader.h"
 #include "Greenslime.h"
 #include "Redslime.h"
+#include "Togetoge.h"
 
 using namespace std;
 
@@ -48,6 +49,9 @@ Field::Field(int stage)
 			}
 			if (maps[y][x] == 4) {
 				new Redslime(x * 64, y * 64);
+			}
+			if (maps[y][x] == 5) {
+				new Togetoge(x * 64, y * 64);
 			}
 		}
 	}

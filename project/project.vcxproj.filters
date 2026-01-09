@@ -80,6 +80,9 @@
     <ClCompile Include="Source\GameOverScene.cpp">
       <Filter>GameOverScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Togetoge.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -173,6 +176,9 @@
     </ClInclude>
     <ClInclude Include="Source\GameOverScene.h">
       <Filter>GameOverScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Togetoge.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
