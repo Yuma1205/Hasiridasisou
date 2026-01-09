@@ -36,6 +36,12 @@ void Greenslime::Update()
     // --- 画面外判定 ---
     int scrollX = field->GetScrollX();
     float drawX = x - scrollX;
+
+    if (drawX < -64) {
+        isDead = true; 
+        return;
+    }
+
     if (drawX < -150 || drawX > 1280) return;
 
 
@@ -56,7 +62,7 @@ void Greenslime::Update()
         float ph = 60;
 
         // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 10.0f; // 左右を15ピクセルずつ縮める
+        float hitMargin = 26.0f; // 左右を15ピクセルずつ縮める
 
         float sx = x + hitMargin;         // 左端を右にずらす
         float sy = y;                     // ★ここを追加しました（Y座標の定義）

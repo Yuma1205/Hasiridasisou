@@ -38,6 +38,10 @@ void Redslime::Update()
     float drawX = x - scrollX;
     if (drawX < -150 || drawX > 1280) return;
 
+    if (drawX < -64) {
+        isDead = true;
+        return;
+    }
 
     // --- プレイヤーとの当たり判定 ---
     Player* player = FindGameObject<Player>();
@@ -56,7 +60,7 @@ void Redslime::Update()
         float ph = 60;
 
         // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 10.0f; // ★左右を15ピクセルずつ縮める
+        float hitMargin = 26.0f; // ★左右を15ピクセルずつ縮める
 
         float sx = x + hitMargin;         // 左端を右にずらす
         float sy = y;                     // Y座標
