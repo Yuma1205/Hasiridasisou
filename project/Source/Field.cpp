@@ -31,6 +31,13 @@ Field::Field(int stage)
 	}
 	delete csv;
 
+	if (maps.size() > 0) {
+		stageWidthPixel = maps[0].size() * 64;
+	}
+	else {
+		stageWidthPixel = 1; // エラー防止
+	}
+
 	hImage = LoadGraph("data/image/bgchar.png");
 
 	bgImage = LoadGraph("data/image/BackGround.png");  // パスは必要に応じて変更
@@ -66,8 +73,8 @@ void Field::Update()
 	Player* player = FindGameObject<Player>();
 
 	if (player && !player->IsDead()) {
-		scrollX += 7; //強制スクロールの場合
-		bgScrollX += 7;    // 背景用スクロール
+		scrollX += 5; //強制スクロールの場合
+		bgScrollX += 5;    // 背景用スクロール
 
 		int targetY = (int)player->GetY() - 75;
 		if (targetY > 0) {
@@ -93,6 +100,28 @@ void Field::Draw()
 			}
 		}
 	}
+	int barX = 400;      // バーの左上のX座標
+	int barY = 25;       // バーのY座標
+	int barW = 500;      // バーの長さ
+	int barH = 15;       // バーの太さ
+
+	// 現在の進捗率を計算 (0.0 ～ 1.0)
+	// scrollX(現在の画面左端) ÷ stageWidthPixel(ステージ全長)
+	float rate = (float)scrollX / (float)stageWidthPixel;
+
+	// 進捗率が1.0を超えないように制限
+	if (rate < 0.0f) rate = 0.0f;
+	if (rate > 1.0f) rate = 1.0f;
+
+	// プレイヤーの現在位置（バー上のX座標）
+	int playerMarkX = barX + (int)(barW * rate);
+
+	// 1. バーの背景を描画（灰色）
+	DrawBox(barX, barY, barX + barW, barY + barH, GetColor(100, 100, 100), TRUE);
+
+	// 2. プレイヤーの位置を示す印を描画（赤色）
+	// バーより少し縦長にして目立たせる
+	DrawBox(playerMarkX - 3, barY - 5, playerMarkX + 3, barY + barH + 5, GetColor(255, 0, 0), TRUE);
 }
 
 bool Field::IsBlock(int px, int py)
@@ -110,7 +139,7 @@ int Field::HitCheckRight(int px, int py)
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return px % 64 + 1;
-	
+
 }
 
 int Field::HitCheckLeft(int px, int py)
@@ -120,7 +149,7 @@ int Field::HitCheckLeft(int px, int py)
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return 64 - px % 64;
-	
+
 }
 
 int Field::HitCheckUp(int px, int py)
@@ -130,7 +159,7 @@ int Field::HitCheckUp(int px, int py)
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return 64 - py % 64;
-	
+
 }
 
 int Field::HitCheckDown(int px, int py)
@@ -140,7 +169,7 @@ int Field::HitCheckDown(int px, int py)
 	int y = py / 64;
 	if (!IsBlock(x, y))return 0;
 	return py % 64 + 1;
-	
+
 }
 
 bool Field::OutOfMap(int px, int py)

@@ -104,7 +104,7 @@ void Player::Update()
 
 
     // 横移動（スクロール）の前に壁チェック
-    float nextX = x + 7;
+    float nextX = x + 5;
 
     int Right1 = field->HitCheckRight(nextX + 50, y + 5);
     int Right2 = field->HitCheckRight(nextX + 50, y + 63);
