@@ -83,6 +83,9 @@
     <ClCompile Include="Source\Togetoge.cpp">
       <Filter>PlayScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\GoalScene.cpp">
+      <Filter>GoalScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -180,6 +183,9 @@
     <ClInclude Include="Source\Togetoge.h">
       <Filter>PlayScene</Filter>
     </ClInclude>
+    <ClInclude Include="Source\GoalScene.h">
+      <Filter>GoalScene</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <Filter Include="Library">
@@ -202,6 +208,9 @@
     </Filter>
     <Filter Include="GameOverScene">
       <UniqueIdentifier>{069f9c54-c88b-4f78-a90a-9c914cea4d0c}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="GoalScene">
+      <UniqueIdentifier>{4401b50f-b26d-43aa-b5e4-ce1a8525cfaa}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
 </Project>

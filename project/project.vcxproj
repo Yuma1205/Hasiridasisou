@@ -158,6 +158,7 @@
     <ClInclude Include="Source\Field.h" />
     <ClInclude Include="Source\GameOver.h" />
     <ClInclude Include="Source\GameOverScene.h" />
+    <ClInclude Include="Source\GoalScene.h" />
     <ClInclude Include="Source\Greenslime.h" />
     <ClInclude Include="Source\Player.h" />
     <ClInclude Include="Source\Redslime.h" />
@@ -189,6 +190,7 @@
     <ClCompile Include="Source\Field.cpp" />
     <ClCompile Include="Source\GameOver.cpp" />
     <ClCompile Include="Source\GameOverScene.cpp" />
+    <ClCompile Include="Source\GoalScene.cpp" />
     <ClCompile Include="Source\Greenslime.cpp" />
     <ClCompile Include="Source\Player.cpp" />
     <ClCompile Include="Source\PlayScene.cpp" />

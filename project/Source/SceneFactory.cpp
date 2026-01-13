@@ -6,6 +6,7 @@
 #include "PlayScene.h"
 #include"StageSelectScene.h"
 #include"GameOverScene.h"
+#include"GoalScene.h"
 
 SceneBase* SceneFactory::CreateFirst()
 {
@@ -29,6 +30,10 @@ SceneBase * SceneFactory::Create(const std::string & name)
 	if (name == "GAMEOVER")
 	{
 		return new GameOverScene();
+	}
+	if (name == "GOAL")
+	{
+		return new GoalScene();
 	}
 	MessageBox(NULL, ("éüÇÃÉVÅ[ÉìÇÕÇ†ÇËÇ‹ÇπÇÒ\n" + name).c_str(), "SceneFactory", MB_ICONERROR | MB_OK);
 	assert(false);
