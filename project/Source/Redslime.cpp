@@ -60,7 +60,7 @@ void Redslime::Update()
         float ph = 60;
 
         // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 26.0f; // ★左右を15ピクセルずつ縮める
+        float hitMargin = 19.0f; // ★左右を15ピクセルずつ縮める
 
         float sx = x + hitMargin;         // 左端を右にずらす
         float sy = y;                     // Y座標

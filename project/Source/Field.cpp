@@ -66,8 +66,8 @@ void Field::Update()
 	Player* player = FindGameObject<Player>();
 
 	if (player && !player->IsDead()) {
-		scrollX += 5; //強制スクロールの場合
-		bgScrollX += 5;    // 背景用スクロール
+		scrollX += 7; //強制スクロールの場合
+		bgScrollX += 7;    // 背景用スクロール
 
 		int targetY = (int)player->GetY() - 75;
 		if (targetY > 0) {

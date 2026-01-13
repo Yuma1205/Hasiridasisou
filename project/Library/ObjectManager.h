@@ -15,6 +15,7 @@ namespace ObjectManager
 	void Update(); // XV
 	void Draw(); // •`‰æ
 	void Release(); // ŠJ•ú
+	void DeleteAll();
 
 	/// <summary>
 	/// GameObject‚ğ’Ç‰Á‚µ‚Ü‚·

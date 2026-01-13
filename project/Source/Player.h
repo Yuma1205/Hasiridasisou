@@ -20,9 +20,11 @@ public:
     float GetY() const { return y; }
     float GetVy() const { return vy; }
 
-    // ★追加：敵との接触時のアクション
+    // 追加：敵との接触時のアクション
     void Bounce();  
     void Dead();    
+
+    bool IsAnimEnd() const { return smokeEnd; }
 
 private:
     int hImage;

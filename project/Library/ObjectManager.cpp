@@ -81,6 +81,20 @@ void ObjectManager::Release()
 	objects = nullptr;
 }
 
+void ObjectManager::DeleteAll()
+{
+	if (objects != nullptr) {
+
+		// šC³1Ffor•¶‚Ì’†‚É *objects ‚ð“ü‚ê‚é
+		for (auto obj : *objects) {
+			delete obj;
+		}
+
+		// šC³2Flist ‚Å‚Í‚È‚­ objects-> ‚ðŽg‚¤
+		objects->clear();
+	}
+}
+
 void ObjectManager::Push(GameObject* obj)
 {
 	objects->push_back(obj);

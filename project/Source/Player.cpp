@@ -6,7 +6,7 @@
 
 
 static const float Gravity = 0.7;
-static const float JUMP_POWER = -10.0f;
+static const float JUMP_POWER = -11.0f;
 static const float GROUND_Y = 600;
 
 const int FRAME_W = 64;
@@ -104,7 +104,7 @@ void Player::Update()
 
 
     // 横移動（スクロール）の前に壁チェック
-    float nextX = x + 5;
+    float nextX = x + 7;
 
     int Right1 = field->HitCheckRight(nextX + 50, y + 5);
     int Right2 = field->HitCheckRight(nextX + 50, y + 63);
