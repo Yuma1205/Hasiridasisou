@@ -4,7 +4,7 @@
 class StageSelectScene : public SceneBase
 {
 private:
-	int selectStage;
+	int selectMap;
 public:
 	StageSelectScene();
 	~StageSelectScene();
