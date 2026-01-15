@@ -5,6 +5,17 @@ class GameOverScene : public SceneBase
 {
 private:
 	int GameOver;
+	int bgImage;
+	int hImage;
+	int dImage;
+
+	int playerX;
+	int playerY;
+
+	bool direction;
+
+	int fadeAlpha;
+
 public:
 	GameOverScene();
 	~GameOverScene();
