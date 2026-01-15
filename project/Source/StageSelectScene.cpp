@@ -35,6 +35,9 @@ void StageSelectScene::Update()
 	if (CheckHitKey(KEY_INPUT_0)) {
 		SceneManager::ChangeScene("GOAL");
 	}
+	if (CheckHitKey(KEY_INPUT_9)) {
+		SceneManager::ChangeScene("GAMEOVER");
+	}
 }
 
 void StageSelectScene::Draw()

@@ -53,7 +53,16 @@ void GameOverScene::Draw()
 	DrawGraph(100, 100, dImage, TRUE);
 
 	// 倒れたキャラ
-	DrawGraph(playerX, playerY, hImage, TRUE);
+	DrawRectRotaGraph(
+		600,
+		400,
+		0, 0,           // 切り取り開始
+		1536, 1024,     // 元画像サイズ
+		0.25f,          // 縮小率
+		0.0,
+		hImage,
+		TRUE
+	);
 
 	DrawString(200, 600, "Tキー：タイトル", GetColor(255, 255, 255));
 	DrawString(400, 600, "Rキー：リトライ", GetColor(255, 255, 255));
