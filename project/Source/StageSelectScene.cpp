@@ -42,13 +42,13 @@ void StageSelectScene::Draw()
 		"HARD"
 	};
 
-	int boxW = 400;
-	int boxH = 250;
-	int y = 150;
+	int boxW = 550;
+	int boxH = 500;
+	int y =100;
 
 	for (int i = 0; i < 2; i++)
 	{
-		int x = 50 + i * 500;
+		int x = 50 + i * 650;
 		int mapNumber = i + 1;
 
 		bool isSelect = (selectMap == mapNumber);
@@ -79,5 +79,5 @@ void StageSelectScene::Draw()
 		);
 	}
 
-	DrawString(180, 450, "© ¨ : ‘I‘ð  ENTER : Œˆ’è", GetColor(200, 200, 200));
+	DrawString(180, 620, "© ¨ : ‘I‘ð  ENTER : Œˆ’è", GetColor(200, 200, 200));
 }
