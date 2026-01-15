@@ -37,7 +37,7 @@ void GameOverScene::Update()
 		return; // フェード中はキー入力を無効にする
 	}
 
-	if (CheckHitKey(KEY_INPUT_T)) {
+	if (CheckHitKey(KEY_INPUT_T) || CheckHitKey(KEY_INPUT_O)) {
 		SceneManager::ChangeScene("TITLE");
 	}
 

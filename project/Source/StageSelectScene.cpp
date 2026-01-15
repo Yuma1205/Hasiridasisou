@@ -31,6 +31,10 @@ void StageSelectScene::Update()
 		SceneManager::SetNextStage(selectMap);
 		SceneManager::ChangeScene("PLAY");
 	}
+
+	if (CheckHitKey(KEY_INPUT_0)) {
+		SceneManager::ChangeScene("GOAL");
+	}
 }
 
 void StageSelectScene::Draw()
