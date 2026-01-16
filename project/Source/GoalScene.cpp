@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "../Library/SceneManager.h"
 #include<assert.h>
+#include<vector>
 
 GoalScene::GoalScene()
 {
@@ -11,6 +12,9 @@ GoalScene::GoalScene()
 	bgImage = LoadGraph("data/image/BGgoal.png");
 	assert(bgImage != -1);
 
+	gmImage = LoadGraph("data/image/greenmidasi.png");
+	assert(gmImage != -1);
+
 	fadeAlpha = 255;
 }
 
@@ -18,6 +22,7 @@ GoalScene::~GoalScene()
 {
 	DeleteGraph(bgImage);
 	DeleteGraph(hImage);
+	DeleteGraph(gmImage);
 }
 
 void GoalScene::Update()
@@ -36,7 +41,12 @@ void GoalScene::Update()
 
 void GoalScene::Draw()
 {
-	DrawGraph(0, 0, bgImage, TRUE);
+	DrawExtendGraph(0, 0, 1280, 720, bgImage,TRUE);
+
+	
+
+	DrawRectRotaGraph(570, 630, 0, 0, 591, 95, 0.75f, 0.0, gmImage, TRUE);
+	
 	DrawRectRotaGraph(
 		600,
 		400,

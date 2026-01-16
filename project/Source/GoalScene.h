@@ -8,6 +8,7 @@ private:
 
 	int hImage;
 	int bgImage;
+	int gmImage;
 
 	int fadeAlpha;
 public:
