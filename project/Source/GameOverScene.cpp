@@ -14,6 +14,12 @@ GameOverScene::GameOverScene()
 	dImage = LoadGraph("data/image/gameover.png");
 	assert(dImage != -1);
 
+	smImage = LoadGraph("data/image/siromidasi.png");
+	assert(smImage != -1);
+
+	gmImage= LoadGraph("data/image/greenmidasi.png");
+	assert(gmImage != -1);
+
 	playerX = 300;
     playerY = 400;
 	direction = false;
@@ -26,7 +32,10 @@ GameOverScene::~GameOverScene()
 	DeleteGraph(bgImage);
 	DeleteGraph(hImage);
 	DeleteGraph(dImage);
+	DeleteGraph(smImage);
+	DeleteGraph(gmImage);
 }
+
 
 void GameOverScene::Update()
 {
@@ -52,6 +61,10 @@ void GameOverScene::Draw()
 
 	DrawGraph(100, 100, dImage, TRUE);
 
+	DrawRectRotaGraph(300, 600, 0, 0, 591, 95, 0.5f, 0.0, gmImage, TRUE);
+	DrawRectRotaGraph(900, 600, 0, 0, 591, 95, 0.5f, 0.0, smImage, TRUE);
+
+
 	// 倒れたキャラ
 	DrawRectRotaGraph(
 		600,
@@ -64,8 +77,9 @@ void GameOverScene::Draw()
 		TRUE
 	);
 
-	DrawString(200, 600, "Tキー：タイトル", GetColor(255, 255, 255));
-	DrawString(400, 600, "Rキー：リトライ", GetColor(255, 255, 255));
+
+	DrawString(220, 593, "Tキー：タイトル", GetColor(0,0,0));
+	DrawString(820, 593, "Rキー：リトライ", GetColor(0,0,0));
 
 	// フェード用黒画面
 	if (fadeAlpha > 0) {
