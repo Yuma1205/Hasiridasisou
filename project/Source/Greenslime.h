@@ -22,5 +22,6 @@ private:
     float vy;      // c‚Ì‘¬“x
     bool onGround; // ’n–Ê‚É‘«‚ª‚Â‚¢‚Ä‚¢‚é‚©
     bool isDead;
+    int hDeadSE;
 };
 

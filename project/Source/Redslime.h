@@ -24,5 +24,6 @@ private:
 
     // “|‚³‚ê‚½‚©‚Ç‚¤‚©‚Ìƒtƒ‰ƒO
     bool isDead;
+    int hDeadSE;
 };
 

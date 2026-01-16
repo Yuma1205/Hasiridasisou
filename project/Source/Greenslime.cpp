@@ -9,6 +9,10 @@ Greenslime::Greenslime(int sx, int sy)
     // 画像読み込み
     hImage = LoadGraph("data/image/Greenslime2.png");
 
+    // やられた音の読み込み
+    hDeadSE = LoadSoundMem("data/Sound/se_enemy_dead04.mp3");
+    ChangeVolumeSoundMem(255, hDeadSE);
+
     x = (float)sx;
     y = (float)sy;
 
@@ -61,26 +65,39 @@ void Greenslime::Update()
         float pw = 24;
         float ph = 60;
 
-        // ★修正：スライムの判定を少し小さくして「足先より後ろ」で当たるようにする
-        float hitMargin = 19.0f; // 左右を15ピクセルずつ縮める
+        // --- スライムの判定領域（円）に変更 ---
+        // スライムの中心座標を計算（画像サイズ90x64の中心）
+        float cx = x + 45.0f;
+        float cy = y + 32.0f;
+        // 半径（高さ64の半分は32ですが、少し小さくすると見た目と合います）
+        float radius = 23.0f;
 
-        float sx = x + hitMargin;         // 左端を右にずらす
-        float sy = y;                     // ★ここを追加しました（Y座標の定義）
-        float sw = 90.0f - hitMargin * 2; // 幅を縮める
-        float sh = 64;
+        // 1. プレイヤーの四角形の中で、スライムの中心に「一番近い点」を探す
+        // （スライムの中心座標を、プレイヤーの四角形の範囲内に無理やり収める計算です）
+        float nearX = max(px, min(cx, px + pw));
+        float nearY = max(py, min(cy, py + ph));
 
-        // 矩形の当たり判定
-        bool isHit = (px < sx + sw && px + pw > sx && py < sy + sh && py + ph > sy);
+        // 2. その「一番近い点」と「スライムの中心」との距離を計算する
+        float distX = cx - nearX;
+        float distY = cy - nearY;
+
+        // 3. 距離の2乗が、半径の2乗より小さければ「当たっている」
+        // （ルート計算を避けるため、2乗同士で比較するのが定石です）
+        bool isHit = (distX * distX + distY * distY) < (radius * radius);
 
         if (isHit) {
             // 踏んだかどうかの判定
             float footY = py + ph;
 
-            // 踏みつけ判定の高さ
-            if (player->GetVy() > 0 && footY < sy + 40) {
+            // 踏みつけ判定の高さ（ここはY座標ベースのままでOKですが、必要なら調整してください）
+            // sy (つまり y) + 40 だったのでそのまま y + 40 で計算します
+            if (player->GetVy() > 0 && footY < y + 40) {
                 // 踏んだ！ -> スライム死亡、プレイヤー跳ねる
                 isDead = true;
                 player->Bounce();
+
+                // やられた音を再生
+                PlaySoundMem(hDeadSE, DX_PLAYTYPE_BACK);
             }
             else {
                 // ぶつかった！ -> プレイヤー死亡

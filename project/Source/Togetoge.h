@@ -13,6 +13,7 @@ private:
     int hImage;
     float x, y;
     float vy; // 落下速度
+    bool isDead;
 
     // アニメーション用
     int count;

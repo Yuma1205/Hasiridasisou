@@ -30,6 +30,8 @@ private:
     int hImage;
     float x, y;
     float vy;
+    int hJumpSE;
+    int hSeDead;
 
 
     enum State {

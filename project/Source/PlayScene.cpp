@@ -26,6 +26,9 @@ PlayScene::PlayScene()
     }
 
     hLifeImage = LoadGraph("data/image/Chara.png");
+    hBGM = LoadSoundMem("data/Sound/stageBGM.mp3");
+    ChangeVolumeSoundMem(160, hBGM);
+
 }
 
 PlayScene::~PlayScene()
@@ -36,6 +39,10 @@ PlayScene::~PlayScene()
     }
 
     DeleteGraph(hLifeImage);
+
+    StopSoundMem(hBGM);
+    DeleteSoundMem(hBGM);
+
     ObjectManager::DeleteAll();
 }
 
@@ -53,10 +60,14 @@ void PlayScene::Reset()
     int stage = SceneManager::GetNextStage();
     new Field(stage);
 
+    StopSoundMem(hBGM);
+
     if (m_readyGo) {
         delete m_readyGo;
     }
     m_readyGo = new ReadyGoManager();
+
+    StopSoundMem(hBGM);
 }
 
 void PlayScene::Update()
@@ -69,10 +80,17 @@ void PlayScene::Update()
         }
     }
 
+    if (fadeAlpha == 0 && !m_readyGo->IsStarted()) {
+        m_readyGo->Start();
+    }
+
     // ReadyGo演出の更新
     m_readyGo->Update();
     if (m_readyGo->IsActive()) {
         return;
+    }
+    if (!isSceneChanging && CheckSoundMem(hBGM) == 0 && lives > 0) {
+        PlaySoundMem(hBGM, DX_PLAYTYPE_LOOP);
     }
     if (isSceneChanging) {
         restartTimer++;
@@ -101,6 +119,8 @@ void PlayScene::Update()
             if (lives == 1) {
                 lives--;        // 0にする
                 new GameOver(); // すぐに文字を表示
+
+                StopSoundMem(hBGM);
             }
             else {
 
@@ -109,6 +129,8 @@ void PlayScene::Update()
 
                 // フェードアウトの色を「黒」にセット
                 fadeColor = GetColor(0, 0, 0);
+
+                StopSoundMem(hBGM);
             }
         }
     }

@@ -21,6 +21,8 @@ const int DEAD_FRAMES = 4;
 Player::Player()
 {
     hImage = LoadGraph("data/image/Chara.png");
+    hJumpSE = LoadSoundMem("data/Sound/se_jump1.mp3");
+    ChangeVolumeSoundMem(15, hJumpSE);
     x = 200.0f;
     y = 500.0f;
     vy = 0.0f;
@@ -43,11 +45,13 @@ Player::Player()
     smokePat = 0;
     smokeEnd = false;
 
+    hSeDead = LoadSoundMem("data/Sound/se_smork.mp3");
 }
 
 Player::Player(int sx, int sy)
 {
     hImage = LoadGraph("data/image/Chara.png");
+    hJumpSE = LoadSoundMem("data/Sound/se_jump1.mp3");
     x = (float)sx;
     y = (float)sy;
     vy = 0.0f;
@@ -70,10 +74,13 @@ Player::Player(int sx, int sy)
     smokePat = 0;
     smokeEnd = false;
 
+    hSeDead = LoadSoundMem("data/sound/se_smork.mp3");
+
 }
 
 Player::~Player()
 {
+    DeleteSoundMem(hSeDead);
 }
 
 void Player::Update()
@@ -104,7 +111,7 @@ void Player::Update()
 
 
     // 横移動（スクロール）の前に壁チェック
-    float nextX = x + 5;
+    float nextX = x + 8;
 
     int Right1 = field->HitCheckRight(nextX + 50, y + 5);
     int Right2 = field->HitCheckRight(nextX + 50, y + 63);
@@ -115,6 +122,8 @@ void Player::Update()
 
         state = STATE_DEAD;
         isDead = true;
+
+        PlaySoundMem(hSeDead, DX_PLAYTYPE_BACK);
 
         deadDrawX = x - field->GetScrollX();
         deadDrawY = y;
@@ -142,6 +151,9 @@ void Player::Update()
         if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
             vy = JUMP_POWER;
             onGround = false;
+
+            PlaySoundMem(hJumpSE, DX_PLAYTYPE_BACK);
+            ChangeVolumeSoundMem(150, hJumpSE);
         }
     }
 
@@ -152,6 +164,9 @@ void Player::Update()
         {
             jumpCount -= 1;
             vy = JUMP_POWER;
+
+            PlaySoundMem(hJumpSE, DX_PLAYTYPE_BACK);
+            ChangeVolumeSoundMem(150, hJumpSE);
         }
     }
 
@@ -181,6 +196,8 @@ void Player::Update()
             if (field->OutOfMap(x, y)) {
                 state = STATE_DEAD;
                 isDead = true;
+
+                PlaySoundMem(hSeDead, DX_PLAYTYPE_BACK);
 
                 deadDrawX = x - field->GetScrollX();
                 deadDrawY = y;
@@ -316,6 +333,9 @@ void Player::Dead()
     if (state != STATE_DEAD) {
         state = STATE_DEAD;
         isDead = true;
+
+        PlaySoundMem(hSeDead, DX_PLAYTYPE_BACK);
+
         count = 0;
         pat = 0;
     }

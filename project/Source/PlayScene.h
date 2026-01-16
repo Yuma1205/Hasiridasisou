@@ -8,8 +8,13 @@ private:
     int timer;
     int state; // 0:Ready, 1:Go, 2:Finished
 
+    bool started;
+
     int hReady;
     int hGo;
+
+    int hSeReady;
+    int hSeGo;
 
     const int TIME_READY = 60; // 2秒
     const int TIME_GO = 45;     // 1秒
@@ -19,16 +24,35 @@ public:
         timer = 0;
         state = 0;
 
+        started = false;
+
         hReady = LoadGraph("data/image/Ready.png");
         hGo = LoadGraph("data/image/Go.png");
+
+        hSeReady = LoadSoundMem("data/sound/se_Ready.mp3");
+        hSeGo = LoadSoundMem("data/sound/se_Go.mp3");
+
     }
 
     ~ReadyGoManager() {
         DeleteGraph(hReady);
         DeleteGraph(hGo);
+
+        DeleteSoundMem(hSeReady);
+        DeleteSoundMem(hSeGo);
     }
 
+    void Start() {
+        if (!started) {
+            started = true;
+            PlaySoundMem(hSeReady, DX_PLAYTYPE_BACK);
+        }
+    }
+
+    bool IsStarted() { return started; }
+
     void Update() {
+        if (!started) return;
         if (state == 2) return;
 
         timer++;
@@ -36,6 +60,8 @@ public:
             if (timer >= TIME_READY) {
                 state = 1;
                 timer = 0;
+
+                PlaySoundMem(hSeGo, DX_PLAYTYPE_BACK);
             }
         }
         else if (state == 1) {
@@ -44,6 +70,7 @@ public:
     }
 
     void Draw() {
+        if (!started) return;
         if (state == 2) return;
 
         int screenW, screenH;
@@ -75,6 +102,8 @@ private:
     // 残機システム用
     static int lives;      // シーンが変わっても値を保持するためにstaticにする
     int hLifeImage;        // 表示用画像
+
+    int hBGM;
 
     // リスタート待機処理用
     bool isSceneChanging;  // 死んでから画面が変わるまでの待機フラグ
