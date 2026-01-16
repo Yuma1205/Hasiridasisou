@@ -8,6 +8,8 @@ private:
 	int bgImage;
 	int hImage;
 	int dImage;
+	int smImage;
+	int gmImage;
 
 	int playerX;
 	int playerY;
