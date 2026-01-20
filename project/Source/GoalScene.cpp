@@ -15,7 +15,13 @@ GoalScene::GoalScene()
 	gmImage = LoadGraph("data/image/greenmidasi.png");
 	assert(gmImage != -1);
 
+	glImage = LoadGraph("data/image/GameClear.png");
+	assert(glImage != -1);
+
 	fadeAlpha = 255;
+
+	fonthandle = CreateFontToHandle(NULL, 32, 3);
+	blinkTimer = 0;
 }
 
 GoalScene::~GoalScene()
@@ -23,6 +29,7 @@ GoalScene::~GoalScene()
 	DeleteGraph(bgImage);
 	DeleteGraph(hImage);
 	DeleteGraph(gmImage);
+	DeleteGraph(glImage);
 }
 
 void GoalScene::Update()
@@ -43,7 +50,7 @@ void GoalScene::Draw()
 {
 	DrawExtendGraph(0, 0, 1280, 720, bgImage,TRUE);
 
-	
+	DrawRectRotaGraph(600,150, 0, 0, 1354, 303, 0.75f, 0.0, glImage, TRUE);
 
 	DrawRectRotaGraph(570, 630, 0, 0, 591, 95, 0.75f, 0.0, gmImage, TRUE);
 	
@@ -59,8 +66,10 @@ void GoalScene::Draw()
 	);
 
 
-	
-	DrawString(200, 600, "Tキー：タイトル", GetColor(255, 255, 255));
+	blinkTimer++;
+	if ((blinkTimer / 45) % 2 == 0)	{
+		DrawStringToHandle(460, 610, "Tキー：タイトル", GetColor(255, 255, 255), fonthandle);
+	}
 
 	// フェード用黒画面
 	if (fadeAlpha > 0) {

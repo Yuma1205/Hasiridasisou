@@ -9,8 +9,11 @@ private:
 	int hImage;
 	int bgImage;
 	int gmImage;
+	int glImage;
 
 	int fadeAlpha;
+	int fonthandle;
+	int blinkTimer;
 public:
 	GoalScene();
 	~GoalScene();

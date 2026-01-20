@@ -26,7 +26,7 @@ void StageSelectScene::Update()
 		selectMap = 1;
 	}
 
-	if (CheckHitKey(KEY_INPUT_RETURN))
+	if (CheckHitKey(KEY_INPUT_SPACE))
 	{
 		SceneManager::SetNextStage(selectMap);
 		SceneManager::ChangeScene("PLAY");
