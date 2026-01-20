@@ -114,13 +114,8 @@ void Togetoge::Update()
 void Togetoge::Draw()
 {
     Field* field = FindGameObject<Field>();
-
-    // 横スクロール位置
     int scrollX = field ? field->GetScrollX() : 0;
-
-    // 縦スクロール位置
-    // Field.h に GetScrollY がない場合は 0 に固定します
-    int scrollY = 0;
+    int scrollY = field ? field->GetScrollY() : 0;
 
     int drawX = (int)(x - scrollX);
     int drawY = (int)(y - scrollY);
