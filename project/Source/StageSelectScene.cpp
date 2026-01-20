@@ -8,10 +8,7 @@
 
 StageSelectScene::StageSelectScene()
 {
-    selectMap = 1;
-
-    // キー状態の初期化
-    memset(keyOld, 0, sizeof(keyOld));
+    selectMap = 2;
 
     fontHandle = CreateFontToHandle("MS ゴシック", 64, -1, DX_FONTTYPE_ANTIALIASING);
     // コンストラクタで作成
@@ -30,33 +27,25 @@ static const int MAX_STAGE = 3;
 
 void StageSelectScene::Update()
 {
-    char keyNow[256];
-    GetHitKeyStateAll(keyNow);
-
-    // 左右移動
-    if (keyNow[KEY_INPUT_RIGHT] && !keyOld[KEY_INPUT_RIGHT]) {
+    if (CheckHitKey(KEY_INPUT_RIGHT)) {
         selectMap++;
-        if (selectMap > MAX_STAGE) selectMap = MAX_STAGE;
+        if (selectMap > 3)selectMap = 3;
     }
 
-    if (keyNow[KEY_INPUT_LEFT] && !keyOld[KEY_INPUT_LEFT]) {
+    if (CheckHitKey(KEY_INPUT_LEFT)) {
         selectMap--;
-        if (selectMap < 1) selectMap = 1;
+        if (selectMap < 1)selectMap = 1;
     }
 
     // 決定
-    if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE))SceneManager::ChangeScene("PLAY");
-
-    // デバッグ用シーン切替
-    if (keyNow[KEY_INPUT_0] && !keyOld[KEY_INPUT_0]) {
-        SceneManager::ChangeScene("GOAL");
+    if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
+        SceneManager::SetNextStage(selectMap);
+        SceneManager::ChangeScene("PLAY");
     }
-    if (keyNow[KEY_INPUT_9] && !keyOld[KEY_INPUT_9]) {
-        SceneManager::ChangeScene("GAMEOVER");
-    }
+    
+    if (CheckHitKey(KEY_INPUT_9))SceneManager::ChangeScene("GAMWOVER");
+    if (CheckHitKey(KEY_INPUT_0))SceneManager::ChangeScene("GOAL");
 
-    // キー状態更新
-    memcpy(keyOld, keyNow, sizeof(keyNow));
 }
 
 void StageSelectScene::Draw()
