@@ -38,7 +38,7 @@ Field::Field(int stage)
 		stageWidthPixel = 1; // エラー防止
 	}
 
-	hImage = LoadGraph("data/image/bgchar.png");
+	hImage = LoadGraph("data/image/bgchar4.png");
 
 	bgImage = LoadGraph("data/image/BackGround.png");  // パスは必要に応じて変更
 	GetGraphSize(bgImage, &bgWidth, nullptr);
@@ -96,7 +96,7 @@ void Field::Draw()
 	for (int y = 0; y < maps.size(); y++) {
 		for (int x = 0; x < maps[y].size(); x++) {
 			if (maps[y][x] == 1) {
-				DrawRectGraph(x * 64 - scrollX, y * 64 - scrollY, 0, 32, 64, 64, hImage, 1);
+				DrawRectGraph(x * 64 - scrollX, y * 64 - scrollY, 0, 0, 64, 64, hImage, 1);
 			}
 		}
 	}

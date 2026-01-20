@@ -145,6 +145,6 @@ void Redslime::Draw()
     int drawX = (int)(x - scrollX);
     int drawY = (int)(y - scrollY);
 
-    int srcX = pat * 90;
-    DrawRectGraph(drawX, drawY, srcX, 0, 90, 64, hImage, TRUE, FALSE);
+    int srcX = pat * 91;
+    DrawRectGraph(drawX, drawY, srcX, 0, 91, 64, hImage, TRUE, FALSE);
 }

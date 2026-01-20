@@ -27,12 +27,12 @@ static const int MAX_STAGE = 3;
 
 void StageSelectScene::Update()
 {
-    if (CheckHitKey(KEY_INPUT_RIGHT)) {
+    if (KeyTrigger::CheckTrigger(KEY_INPUT_RIGHT)) {
         selectMap++;
         if (selectMap > 3)selectMap = 3;
     }
 
-    if (CheckHitKey(KEY_INPUT_LEFT)) {
+    if (KeyTrigger::CheckTrigger(KEY_INPUT_LEFT)) {
         selectMap--;
         if (selectMap < 1)selectMap = 1;
     }
@@ -43,8 +43,9 @@ void StageSelectScene::Update()
         SceneManager::ChangeScene("PLAY");
     }
     
-    if (CheckHitKey(KEY_INPUT_9))SceneManager::ChangeScene("GAMWOVER");
+    if (CheckHitKey(KEY_INPUT_9))SceneManager::ChangeScene("GAMEOVER");
     if (CheckHitKey(KEY_INPUT_0))SceneManager::ChangeScene("GOAL");
+    if (CheckHitKey(KEY_INPUT_O))SceneManager::ChangeScene("TITLE");
 
 }
 
