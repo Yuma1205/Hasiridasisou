@@ -3,7 +3,7 @@
 #include"../Library/Trigger.h"
 #include"GameOver.h"
 #include<assert.h>
-
+#include"Goal.h"
 
 static const float Gravity = 0.7;
 static const float JUMP_POWER = -11.0f;
@@ -226,6 +226,17 @@ void Player::Update()
         }
        
     }
+
+    Goal* goal = FindGameObject<Goal>();
+
+    if (goal)
+    {
+        if (goal->CheckHit(x, y, width, height))
+        {
+            SceneManager::ChangeScene("GOAL");
+        }
+    }
+
 
     if (CheckHitKey(KEY_INPUT_E) && state != STATE_ATTACK) {
         state = STATE_ATTACK;

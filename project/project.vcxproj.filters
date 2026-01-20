@@ -86,6 +86,9 @@
     <ClCompile Include="Source\GoalScene.cpp">
       <Filter>GoalScene</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Goal.cpp">
+      <Filter>PlayScene</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Library\App.h">
@@ -185,6 +188,9 @@
     </ClInclude>
     <ClInclude Include="Source\GoalScene.h">
       <Filter>GoalScene</Filter>
+    </ClInclude>
+    <ClInclude Include="Source\Goal.h">
+      <Filter>PlayScene</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

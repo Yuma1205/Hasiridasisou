@@ -32,7 +32,8 @@ private:
     float vy;
     int hJumpSE;
     int hSeDead;
-
+    int width = 64;
+    int height = 64;
 
     enum State {
         STATE_IDLE,

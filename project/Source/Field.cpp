@@ -5,6 +5,7 @@
 #include "Greenslime.h"
 #include "Redslime.h"
 #include "Togetoge.h"
+#include "Goal.h"
 
 using namespace std;
 
@@ -59,6 +60,9 @@ Field::Field(int stage)
 			}
 			if (maps[y][x] == 5) {
 				new Togetoge(x * 64, y * 64);
+			}
+			if (maps[y][x] == 9) {
+				new Goal(x * 64, y * 64);
 			}
 		}
 	}
