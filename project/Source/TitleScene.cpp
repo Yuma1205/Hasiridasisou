@@ -1,5 +1,6 @@
 #include "TitleScene.h"
 #include <DxLib.h>
+#include "../Library/Trigger.h"
 
 TitleScene::TitleScene()
 {
@@ -33,7 +34,7 @@ TitleScene::~TitleScene()
 void TitleScene::Update()
 {
 
-	if (CheckHitKey(KEY_INPUT_SPACE)) SceneManager::ChangeScene("STAGESELECT");
+	if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) SceneManager::ChangeScene("STAGESELECT");
 	if (CheckHitKey(KEY_INPUT_P))     SceneManager::ChangeScene("STAGESELECT");
 	if (CheckHitKey(KEY_INPUT_ESCAPE)) SceneManager::Exit();
 

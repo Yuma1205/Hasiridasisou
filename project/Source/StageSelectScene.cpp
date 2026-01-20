@@ -3,6 +3,8 @@
 #include "../Library/SceneManager.h"
 #include "PlayScene.h"
 #include <cstring>
+#include "../Library/Trigger.h"
+
 
 StageSelectScene::StageSelectScene()
 {
@@ -43,10 +45,7 @@ void StageSelectScene::Update()
     }
 
     // 決定
-    if (keyNow[KEY_INPUT_SPACE] && !keyOld[KEY_INPUT_SPACE]) {
-        SceneManager::SetNextStage(selectMap);
-        SceneManager::ChangeScene("PLAY");
-    }
+    if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE))SceneManager::ChangeScene("PLAY");
 
     // デバッグ用シーン切替
     if (keyNow[KEY_INPUT_0] && !keyOld[KEY_INPUT_0]) {
