@@ -9,6 +9,8 @@ public:
 	void Update() override;
 	void Draw() override;
 
+	static void StopBGM();
+
 private:
 	int m_hBackGround;
 	int m_hPlayUI;
@@ -16,6 +18,8 @@ private:
 	int m_hTitleLogo;
 
 	bool direction;
+
+	static int m_hBGM;
 
 	int count;
 	int pat;

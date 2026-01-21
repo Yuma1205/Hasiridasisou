@@ -14,6 +14,7 @@ private:
 	int fadeAlpha;
 	int fonthandle;
 	int blinkTimer;
+	int m_hBGM;
 public:
 	GoalScene();
 	~GoalScene();

@@ -8,6 +8,10 @@ private:
 	int fontHandle;
 	int titleFontHandle;
 
+	int hBackGround; 
+	int bgWidth;     
+	float scrollX;   
+
 
 	char keyOld[256];
 public:

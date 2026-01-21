@@ -21,9 +21,7 @@ PlayScene::PlayScene()
     fadeAlpha = 255;
     fadeColor = GetColor(255, 255, 255);
 
-    if (lives <= 0) {
-        lives = 3;
-    }
+    lives = 3;
 
     hLifeImage = LoadGraph("data/image/Chara.png");
     hBGM = LoadSoundMem("data/Sound/stageBGM.mp3");

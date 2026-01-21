@@ -11,7 +11,7 @@ Greenslime::Greenslime(int sx, int sy)
 
     // Ç‚ÇÁÇÍÇΩâπÇÃì«Ç›çûÇ›
     hDeadSE = LoadSoundMem("data/Sound/se_enemy_dead04.mp3");
-    ChangeVolumeSoundMem(255, hDeadSE);
+    ChangeVolumeSoundMem(200, hDeadSE);
 
     x = (float)sx;
     y = (float)sy;

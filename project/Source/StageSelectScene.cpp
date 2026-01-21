@@ -2,6 +2,7 @@
 #include "DxLib.h"
 #include "../Library/SceneManager.h"
 #include "PlayScene.h"
+#include "TitleScene.h"
 #include <cstring>
 #include "../Library/Trigger.h"
 
@@ -13,12 +14,19 @@ StageSelectScene::StageSelectScene()
     fontHandle = CreateFontToHandle("MS ゴシック", 64, -1, DX_FONTTYPE_ANTIALIASING);
     // コンストラクタで作成
     titleFontHandle = CreateFontToHandle("ＭＳ ゴシック", 32, -1, DX_FONTTYPE_ANTIALIASING);
+
+    hBackGround = LoadGraph("data/image/TitleBackGround2.png");
+
+    GetGraphSize(hBackGround, &bgWidth, NULL);
+
+    scrollX = 0;
 }
 
 StageSelectScene::~StageSelectScene()
 {
     DeleteFontToHandle(fontHandle);
     DeleteFontToHandle(titleFontHandle);
+    DeleteGraph(hBackGround);
 
 }
 
@@ -27,6 +35,11 @@ static const int MAX_STAGE = 3;
 
 void StageSelectScene::Update()
 {
+    scrollX -= 2.0f; // 数字を大きくすると速くなります
+
+    if (scrollX <= -bgWidth) {
+        scrollX = 0;
+    }
     if (KeyTrigger::CheckTrigger(KEY_INPUT_RIGHT)) {
         selectMap++;
         if (selectMap > 3)selectMap = 3;
@@ -39,6 +52,7 @@ void StageSelectScene::Update()
 
     // 決定
     if (KeyTrigger::CheckTrigger(KEY_INPUT_SPACE)) {
+        TitleScene::StopBGM();
         SceneManager::SetNextStage(selectMap);
         SceneManager::ChangeScene("PLAY");
     }
@@ -51,9 +65,26 @@ void StageSelectScene::Update()
 
 void StageSelectScene::Draw()
 {
+    if (hBackGround != -1) {
+        // 1枚目
+        DrawGraph((int)scrollX, 0, hBackGround, FALSE);
+
+        // 2枚目（途切れないようにすぐ右隣に描画）
+        DrawGraph((int)scrollX + bgWidth, 0, hBackGround, FALSE);
+    }
     // Draw内で描画
-    DrawStringToHandle(300, 50,"STAGE SELECT",GetColor(255, 255, 255),
-        titleFontHandle );
+    const char* titleText = "STAGE SELECT"; // 表示する文字
+    int screenW = 1280; // 画面幅
+
+    // 文字列の幅を取得
+    int strWidth = GetDrawStringWidthToHandle(titleText, -1, titleFontHandle);
+
+    // 真ん中のX座標を計算： (画面幅 - 文字幅) ÷ 2
+    int titleX = (screenW - strWidth) / 2;
+
+    // 計算した titleX を使って描画
+    DrawStringToHandle(titleX, 50, titleText, GetColor(255, 255, 255),
+        titleFontHandle);
 
 
     const char* mapName[MAX_STAGE] = {
@@ -65,7 +96,6 @@ void StageSelectScene::Draw()
     int boxW = 350;
     int boxH = 500;
     int y = 100;
-    int screenW = 1280;
 
     int margin = (screenW - boxW * MAX_STAGE) / (MAX_STAGE + 1);
 
@@ -103,6 +133,6 @@ void StageSelectScene::Draw()
         );
     }
 
-    DrawStringToHandle(180, 620, "← → : 選択  SPACE : 決定", GetColor(200, 200, 200),titleFontHandle);
+    DrawStringToHandle(400, 620, "← → : 選択  SPACE : 決定", GetColor(200, 200, 200),titleFontHandle);
 }
 

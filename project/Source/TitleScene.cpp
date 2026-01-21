@@ -2,6 +2,8 @@
 #include <DxLib.h>
 #include "../Library/Trigger.h"
 
+int TitleScene::m_hBGM = -1;
+
 TitleScene::TitleScene()
 {
 	m_hBackGround = LoadGraph("data\\image\\TitleBackGround2.png");
@@ -10,6 +12,14 @@ TitleScene::TitleScene()
 	m_hTitleLogo = LoadGraph("data\\image\\GameTitle2.png");
 
 	direction = false;
+
+	if (m_hBGM == -1) {
+		m_hBGM = LoadSoundMem("data\\sound\\TitleBGM.mp3");
+		ChangeVolumeSoundMem(128, m_hBGM);
+	}
+	if (m_hBGM != -1 && CheckSoundMem(m_hBGM) == 0) {
+		PlaySoundMem(m_hBGM, DX_PLAYTYPE_LOOP);
+	}
 
 	count = 0;
 	pat = 0;
@@ -29,6 +39,15 @@ TitleScene::~TitleScene()
 	DeleteGraph(m_hPlayUI);
 	DeleteGraph(m_hChara);
 	DeleteGraph(m_hTitleLogo);
+}
+
+void TitleScene::StopBGM()
+{
+	if (m_hBGM != -1) {
+		StopSoundMem(m_hBGM);   // é~ÇﬂÇÈ
+		DeleteSoundMem(m_hBGM); // ÉÅÉÇÉäÇ©ÇÁçÌèú
+		m_hBGM = -1;            // èÛë‘Çñ¢ì«Ç›çûÇ›Ç…ñﬂÇ∑
+	}
 }
 
 void TitleScene::Update()
@@ -97,10 +116,9 @@ void TitleScene::Draw()
 		int targetW = 630;
 		int targetH = 400;
 		int x = (1280 - targetW) / 2;
-		int y = 225;
+		int y = 245;
 		DrawExtendGraph(x, y, x + targetW, y + targetH, m_hPlayUI, TRUE);
 	}
 
 	extern const char* Version();
-	DrawString(0, 20, Version(), GetColor(255, 255, 255));
 }

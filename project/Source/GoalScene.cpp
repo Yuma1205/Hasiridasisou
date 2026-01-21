@@ -22,6 +22,12 @@ GoalScene::GoalScene()
 
 	fonthandle = CreateFontToHandle(NULL, 32, 3);
 	blinkTimer = 0;
+
+	m_hBGM = LoadSoundMem("data/sound/GoolBGM.mp3");
+
+	ChangeVolumeSoundMem(135, m_hBGM);
+
+	PlaySoundMem(m_hBGM, DX_PLAYTYPE_BACK);
 }
 
 GoalScene::~GoalScene()
@@ -30,6 +36,7 @@ GoalScene::~GoalScene()
 	DeleteGraph(hImage);
 	DeleteGraph(gmImage);
 	DeleteGraph(glImage);
+	DeleteSoundMem(m_hBGM);
 }
 
 void GoalScene::Update()
