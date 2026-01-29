@@ -76,7 +76,21 @@ void Field::Update()
 {
 	Player* player = FindGameObject<Player>();
 
-	if (player && !player->IsDead()) {
+	Goal* goal = FindGameObject<Goal>(); // ★ゴールを探す
+
+	bool stopScroll = false; // スクロールを止めるかどうかのフラグ
+
+
+	if (goal != nullptr) {
+		// ゴールの描画X座標（ワールド座標 - スクロール量）を計算
+		float goalDrawX = goal->GetX() - scrollX;
+
+		if (goalDrawX < 1000) {
+			stopScroll = true;
+		}
+	}
+
+	if (player && !player->IsDead() && !stopScroll) {
 		scrollX += 8; //強制スクロールの場合
 		bgScrollX += 2;    // 背景用スクロール
 

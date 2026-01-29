@@ -24,7 +24,7 @@ PlayScene::PlayScene()
     lives = 3;
 
     hLifeImage = LoadGraph("data/image/Chara.png");
-    hBGM = LoadSoundMem("data/Sound/stageBGM.mp3");
+    hBGM = LoadSoundMem("data/Sound/stageBGM1.mp3");
     ChangeVolumeSoundMem(160, hBGM);
 
 }

@@ -11,6 +11,7 @@ public:
 	void Draw()override;
 
 	bool CheckHit(float px, float py, int pw, int ph);
+	float GetX() const { return x; }
 private:
 	int hImage;
 	float x, y;
