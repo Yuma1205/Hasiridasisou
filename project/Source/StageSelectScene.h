@@ -11,6 +11,9 @@ private:
 	int hBackGround; 
 	int bgWidth;     
 	float scrollX;   
+	int hStageGraph[3];
+
+	int hSE;
 
 
 	char keyOld[256];

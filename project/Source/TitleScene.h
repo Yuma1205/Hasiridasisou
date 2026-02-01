@@ -17,6 +17,9 @@ private:
 	int m_hChara;
 	int m_hTitleLogo;
 
+	// ★追加：SE用ハンドル
+	int m_hSE;
+
 	bool direction;
 
 	static int m_hBGM;
@@ -24,10 +27,8 @@ private:
 	int count;
 	int pat;
 
-	// ★変更：背景のスクロール用変数
 	float bgX;
 
-	// キャラクターの表示位置（画面上のどこに固定するか）
 	float charaX;
 	float charaY;
 };

@@ -11,6 +11,8 @@ int PlayScene::lives = 0;
 PlayScene::PlayScene()
 {
     m_readyGo = new ReadyGoManager();
+
+    // 現在のステージ番号を取得 (1:EASY, 2:NORMAL, 3:HARD)
     int stage = SceneManager::GetNextStage();
     new Field(stage);
 
@@ -24,9 +26,23 @@ PlayScene::PlayScene()
     lives = 3;
 
     hLifeImage = LoadGraph("data/image/Chara.png");
-    hBGM = LoadSoundMem("data/Sound/stageBGM1.mp3");
-    ChangeVolumeSoundMem(160, hBGM);
 
+    // ★変更：ステージ番号によってBGMを変える
+    if (stage == 1) {
+        hBGM = LoadSoundMem("data/Sound/stageBGM1.mp3"); // EASY
+    }
+    else if (stage == 2) {
+        hBGM = LoadSoundMem("data/Sound/stageBGM2.mp3"); // NORMAL
+    }
+    else if (stage == 3) {
+        hBGM = LoadSoundMem("data/Sound/stageBGM3.mp3"); // HARD
+    }
+    else {
+        // エラー等の予備（念のためstage1を入れておく）
+        hBGM = LoadSoundMem("data/Sound/stageBGM1.mp3");
+    }
+
+    ChangeVolumeSoundMem(160, hBGM);
 }
 
 PlayScene::~PlayScene()
@@ -65,6 +81,7 @@ void PlayScene::Reset()
     }
     m_readyGo = new ReadyGoManager();
 
+    // Reset時にBGMを停止（ReadyGoが終わったら再生されるため）
     StopSoundMem(hBGM);
 }
 
@@ -87,9 +104,12 @@ void PlayScene::Update()
     if (m_readyGo->IsActive()) {
         return;
     }
+
+    // BGM再生処理
     if (!isSceneChanging && CheckSoundMem(hBGM) == 0 && lives > 0) {
         PlaySoundMem(hBGM, DX_PLAYTYPE_LOOP);
     }
+
     if (isSceneChanging) {
         restartTimer++;
 
@@ -103,7 +123,7 @@ void PlayScene::Update()
             Reset(); // リスタート
         }
 
-        return; 
+        return;
     }
 
     // 通常のゲーム更新

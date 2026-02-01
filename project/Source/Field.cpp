@@ -94,7 +94,7 @@ void Field::Update()
 		scrollX += 8; //強制スクロールの場合
 		bgScrollX += 2;    // 背景用スクロール
 
-		int targetY = (int)player->GetY() - 75;
+		int targetY = (int)player->GetY() - 90;
 		if (targetY > 0) {
 			targetY = 0;
 		}
